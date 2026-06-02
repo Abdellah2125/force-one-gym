@@ -844,6 +844,32 @@ table button.delete:hover {
     .card h2 {
         font-size: var(--font-xl);
     }
+
+    /* ✅ تحسينات خاصة بصفحة إدارة الحصص (Classes Page) */
+    .form-row {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .form-row input,
+    .form-row select {
+        width: 100%;
+        min-width: auto;
+    }
+
+    #classForm button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* تحسين الجدول للتمرير الأفقي */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+    
+    table {
+        min-width: 600px;
+    }
 }
 
 /* الجوالات الصغيرة */
@@ -1214,3 +1240,5 @@ table button.delete:hover {
     font-size: 48px;
     margin-bottom: 20px;
 }
+
+ 
