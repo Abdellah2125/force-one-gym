@@ -113,7 +113,11 @@ function updateClasses() {
     let data = classesData.filter(c =>
         (!classesState.trainer || c.trainer === classesState.trainer) &&
         (!classesState.days.length || classesState.days.includes(c.day)) &&
-        (classesState.level === "All" || c.difficulty === classesState.level)
+        (
+            classesState.level === "All" ||
+            c.difficulty === classesState.level ||
+            c.difficulty === "All Levels"  // ✅ تظهر دائماً مع أي فلتر
+        )
     );
 
     if (classesState.sortField) {
@@ -468,18 +472,18 @@ function parseFeaturesToArray(featuresText) {
 function renderPlans() {
     const container = document.getElementById('plans-container');
     if (!container) return;
-    
+
     const plans = fetchPlans();
-    
+
     if (!plans.length) {
         container.innerHTML = `<div class="error-message">⚠️ No plans available</div>`;
         return;
     }
-    
+
     container.innerHTML = plans.map(plan => {
         const numericPrice = plan.price.replace(' DA', '').trim();
         const featuresList = parseFeaturesToArray(plan.features);
-        
+
         return `
             <article class="plan-card">
                 <h3>${escapeHtml(plan.name)}</h3>
@@ -708,7 +712,7 @@ function displayStoredMessages() {
             <div>💬 <strong>Message:</strong> ${escapeHtml(m.message)}</div>
             <div style="font-size:12px;color:#888;margin-top:5px;">📅 ${escapeHtml(m.timestamp)}</div>
         </div>`).join('');
-        
+
     // إضافة زر مسح الكل محسن
     const clearBtn = document.getElementById("clearStorageBtn");
     if (clearBtn && msgs.length > 0) {
@@ -782,7 +786,7 @@ function resetContactForm() {
 
 function initContactPage() {
     updateCharCounter();
-     
+
 
     ["name", "email", "subject"].forEach(id => {
         const el = document.getElementById(id);
@@ -817,7 +821,7 @@ function initContactPage() {
         });
     }
 
-     
+
 }
 
 // ========== 7. الصفحة الرئيسية ==========
@@ -849,7 +853,7 @@ function updateLiveStats() {
 }
 
 function loadDynamicPlans() {
-     
+
     const plans = getPlans();
     const container = document.getElementById('dynamicPlans');
     if (!container) return;
