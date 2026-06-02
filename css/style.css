@@ -7,6 +7,41 @@
     --accent: #e2e521;
     --bg: #080808;
     --text: #ffffff;
+    
+    /* إضافة نظام متكامل للتباعد */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* نظام الخطوط المتجاوبة */
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.25rem;
+    --font-xl: 1.5rem;
+    --font-2xl: 2rem;
+    --font-3xl: 2.5rem;
+    --font-4xl: 3rem;
+    
+    /* العروض */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+}
+
+/* استخدام المتغيرات */
+.cta-btn {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-md);
+}
+
+#hero h1 {
+    font-size: var(--font-4xl);
 }
 
 @keyframes fadeIn {
@@ -583,6 +618,8 @@ footer p {
     text-align: center;
     margin-bottom: 1rem;
 }
+
+ 
 
 /* --- Plans (الصفحة الرئيسية) --- */
 #plans {
@@ -1178,14 +1215,18 @@ footer p {
     position: sticky;
     top: 0;
     background: #1a1a1a;
-    padding: 12px 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-radius: 8px;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
     border: 2px solid var(--accent);
     z-index: 100;
+    backdrop-filter: blur(10px);
+    background: rgba(26, 26, 26, 0.95);
 }
 
 .cart-bar button {
@@ -1541,6 +1582,15 @@ form {
 /* --- 768px --- */
 @media (max-width: 768px) {
 
+    .toast {
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        left: var(--spacing-md);
+        max-width: none;
+        text-align: center;
+        justify-content: center;
+    }
+
     /* Navigation */
     .navbar {
         flex-direction: column;
@@ -1707,9 +1757,35 @@ form {
     }
 
     /* Membership Plans */
-    #membership-plans {
+   .plans-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
     }
+    
+    /* تحسين البطاقات في الشاشات الصغيرة */
+    .plans-grid article {
+        max-width: 400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .cart-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-md);
+    }
+    
+    .cart-bar span {
+        font-size: 0.9rem;
+    }
+    
+    .cart-bar button {
+        width: 100%;
+        max-width: 200px;
+    }
+
+
 
     /* Contact */
     #contact-wrapper {
@@ -1772,5 +1848,75 @@ form {
     #contact-wrapper {
         padding: 0 0.8rem;
     }
+
+    .cart-bar {
+        position: relative;
+        border-radius: 0;
+    }
+
+    .toast {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.85rem;
+    }
+    
+    .toast i {
+        font-size: 1rem;
+    }
 }
 
+/* شاشات 375px (iPhone SE) */
+@media (max-width: 375px) {
+    #hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    #hero p {
+        font-size: 0.9rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .page-header p {
+        font-size: 0.8rem;
+        padding: 0 1rem;
+    }
+    
+    /* تحسين أزرار التصفية */
+    .day-btn, .difficulty-btn {
+        padding: 4px 10px;
+        font-size: 0.7rem;
+    }
+    
+    /* تحسين الـ Modal */
+    .modal-content {
+        width: 98%;
+        max-height: 95vh;
+    }
+    
+    .modal-img {
+        width: 80px;
+        height: 80px;
+        margin-top: -15px;
+    }
+}
+
+/* شاشات 320px */
+@media (max-width: 320px) {
+    .navbar {
+        padding: 0.5rem;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-links li a {
+        font-size: 0.85rem;
+    }
+}
