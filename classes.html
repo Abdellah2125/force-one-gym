@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classes - Force One Gym</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+ 
+</head>
+
+<body class="classes-page">
+
+  <!-- ===== شريط التنقل ===== -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="imag/logo.jpg" alt="Force One Gym Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="classes.html" class="active">Classes</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="trainers.html">Trainers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== رأس الصفحة ===== -->
+    <div class="page-header">
+        <h1>Our Classes</h1>
+        <p>Explore all available fitness classes, their schedules, and difficulty levels.</p>
+    </div>
+
+  <main id="classes">
+
+    <!-- Live Data Badge -->
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <span class="live-badge" id="classCount">📋 Loading classes...</span>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-container">
+      <div class="filter-group">
+        <label for="trainerFilter">Trainer:</label>
+        <select id="trainerFilter">
+          <option value="">All Trainers</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Day:</label>
+        <div class="day-buttons" id="dayButtons"></div>
+      </div>
+
+      <div class="filter-group">
+        <label>Difficulty:</label>
+        <div class="difficulty-buttons">
+          <button class="difficulty-btn active" data-level="All">All</button>
+          <button class="difficulty-btn" data-level="Beginner">Beginner</button>
+          <button class="difficulty-btn" data-level="Intermediate">Intermediate</button>
+          <button class="difficulty-btn" data-level="Advanced">Advanced</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="classes-table-wrapper">
+      <table class="classes-table">
+        <caption>Schedule of Gym Classes</caption>
+        <thead>
+          <tr>
+            <th class="sortable" data-field="name">Class Name</th>
+            <th>Trainer</th>
+            <th>Day</th>
+            <th class="sortable" data-field="time">Time</th>
+            <th class="sortable" data-field="duration">Duration</th>
+            <th>Difficulty Level</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <section>
+      <h3>Contact Us</h3>
+      <address>
+        Force One Gym<br>
+        UV2, Ali Mendjeli<br>
+        Constantine, Algeria<br>
+        Phone: +213664763765<br>
+        Email: ForceOneGym@gmail.com
+      </address>
+    </section>
+
+    <section>
+      <h3>Follow Us</h3>
+      <ul class="social-links">
+        <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Opening Hours</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tbody>
+          <tr>
+            <td>Saturday - Wednesday</td>
+            <td>6:00 - 22:00</td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td>6:00 - 14:00</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>Closed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Admin Access</h3>
+      <p class="admin-footer-link"><a href="admin-login.html">🔐 Admin Login</a></p>
+    </section>
+
+    <p>&copy; 2026 Force One Gym. All Rights Reserved.</p>
+  </footer>
+<script src="js/data-config.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>

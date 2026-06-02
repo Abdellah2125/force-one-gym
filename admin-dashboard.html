@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css">
+     
+</head>
+<body>
+
+<header>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<div class="admin-layout">
+    <aside class="sidebar">
+        <ul>
+            <li><a class="active" href="#"> Dashboard</a></li>
+            <li><a href="admin-members.html"> Members</a></li>
+            <li><a href="admin-classes.html"> Classes</a></li>
+            <li><a href="admin-plans.html"> Plans</a></li>
+            <li><a href="admin-messages.html">📩 Contact Messages</a></li>
+            <li style="margin-top: 50px;"><a href="#" onclick="logout()" style="color: #e74c3c;">🚪 Logout</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <div class="welcome-card">
+            <h3>👋 Welcome back, <span id="adminName">Admin</span>!</h3>
+            <p>Here's what's happening with your gym today.</p>
+        </div>
+
+        <section class="card">
+            <h2>📊 Summary Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card" onclick="window.location.href='admin-members.html'">
+                    <div class="number" id="totalMembers">0</div>
+                    <div class="label">Total Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="activeSubs">0</div>
+                    <div class="label">Active Subscriptions</div>
+                </div>
+                <div class="stat-card" onclick="window.location.href='admin-classes.html'">
+                    <div class="number" id="classesPerWeek">0</div>
+                    <div class="label">Classes Per Week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="popularPlan">-</div>
+                    <div class="label">Most Popular Plan</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📈 Member Distribution by Plan</h2>
+            <div class="chart-container">
+                <div class="bar-chart" id="barChart"></div>
+                <div class="refresh-note">📊 Stats update automatically when members or classes are modified</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📋 Recent Members</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Join Date</th></tr></thead>
+                    <tbody id="recentMembers"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="js/data-config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Members Management</title>
+    <link rel="stylesheet" href="css/admin.css">
+     
+</head>
+
+<body>
+
+    <header>
+        <h1>Members Management</h1>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a class="active" href="#">Members</a></li>
+                <li><a href="admin-classes.html">Classes</a></li>
+                <li><a href="admin-plans.html">Plans</a></li>
+                <li><a href="admin-messages.html">📩 Contact Messages</a></li>
+                <li style="margin-top: 50px;">
+                    <a href="#" onclick="logout()" style="color: #e74c3c;">
+                        🚪 Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <section class="card">
+                <h2>Search & Filter</h2>
+                <div class="filter-row">
+                    <input type="text" id="search" placeholder="🔍 Search by name or email...">
+                    <select id="planFilter">
+                        <option value="All">All Plans</option>
+                        <option value="Bronze">🥉 Bronze</option>
+                        <option value="Silver">🥈 Silver</option>
+                        <option value="Gold">🥇 Gold</option>
+                    </select>
+                </div>
+                <p><strong>Total Members: <span id="count">0</span></strong></p>
+            </section>
+
+            <section class="card">
+                <h2>Members List</h2>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Plan</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Add New Member</h2>
+                <form id="memberForm" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <input type="text" id="name" placeholder="Full Name" required style="flex: 1;">
+                    <input type="email" id="email" placeholder="Email" required style="flex: 1;">
+                    <input type="text" id="phone" placeholder="Phone" required style="flex: 1;">
+                    <select id="plan" style="flex: 1;">
+                        <option>Bronze</option>
+                        <option>Silver</option>
+                        <option>Gold</option>
+                    </select>
+                    <input type="date" id="joinDate" required style="flex: 1;">
+                    <button type="submit" style="background: #27ae60; color: white; border: none; padding: 0 1rem;">+
+                        Add</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 1rem;">✏️ Edit Member</h3>
+            <input type="text" id="editName" placeholder="Full Name">
+            <input type="email" id="editEmail" placeholder="Email">
+            <input type="text" id="editPhone" placeholder="Phone">
+            <select id="editPlan">
+                <option>Bronze</option>
+                <option>Silver</option>
+                <option>Gold</option>
+            </select>
+            <input type="date" id="editJoinDate">
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="saveEdit()">Save</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data-config.js"></script>
+   <script src="js/admin.js"></script>
+</body>
+
+</html>

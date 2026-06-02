@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <style>
+        .error-message {
+            color: #e74c3c;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Admin Login</h1>
+        <p>Authorized personnel only.</p>
+    </header>
+
+    <main class="login-container">
+        <section id="admin-login-form">
+            <h2>Welcome Back</h2>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" name="username" id="username" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-input" required>
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">Login</button> 
+            </form>
+
+            <p id="error-message" class="error-message">❌ Invalid username or password.</p>
+            <p><a href="index.html" class="link">Return to Home</a></p>  
+        </section>
+    </main>
+
+    <script src="js/data-config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

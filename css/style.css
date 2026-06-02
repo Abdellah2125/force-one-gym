@@ -1,0 +1,1776 @@
+/* ============================================================
+   1. المتغيرات والرسوم المتحركة
+   ============================================================ */
+
+:root {
+    --primary: #1c1c1c;
+    --accent: #e2e521;
+    --bg: #080808;
+    --text: #ffffff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* ============================================================
+   2. عناصر عامة
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Oswald', sans-serif;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* --- زر CTA العام --- */
+.cta-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 1.6rem;
+    background: var(--accent);
+    border-radius: 5px;
+    color: #080808;
+    font-weight: bold;
+    transition: background 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-btn:hover {
+    background: #d4d500;
+    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+}
+
+/* --- أزرار عامة --- */
+button {
+    padding: 0.7rem;
+    background: var(--accent);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #080808;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #d4d500;
+}
+
+button[type="submit"] {
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100%;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #c0392b;
+    transform: scale(1.02);
+}
+
+button[type="submit"]:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- حقول الإدخال العامة --- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"] {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #111;
+    color: white;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px var(--accent);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--accent);
+    margin-right: 5px;
+}
+
+/* --- حالات التحقق --- */
+input.error,
+textarea.error {
+    border: 2px solid #e74c3c !important;
+}
+
+input.success,
+textarea.success {
+    border: 2px solid #2ecc71 !important;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.success-message {
+    color: #2ecc71;
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* --- Fieldset --- */
+fieldset {
+    border: 1px solid #444;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+legend {
+    padding: 0 6px;
+    color: var(--accent);
+}
+
+/* --- Badge المستوى (مشترك: Classes + Admin) --- */
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge.beginner {
+    background: #2ecc71;
+}
+
+.badge.intermediate {
+    background: #f39c12;
+}
+
+.badge.advanced {
+    background: #e74c3c;
+}
+
+.badge.all-levels {
+    background: #3498db;
+}
+
+/* --- Toast Notification --- */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #2ecc71;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    animation: slideInRight 0.3s ease;
+    font-weight: bold;
+}
+
+.toast.error {
+    background: #e74c3c;
+}
+
+.toast i {
+    font-size: 1.2rem;
+}
+
+/* --- إشعار منبثق عام --- */
+.gym-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    color: white;
+    border-radius: 8px;
+    z-index: 3000;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+
+/* ============================================================
+   3. Navigation
+   ============================================================ */
+
+.site-header {
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary);
+    padding: 1rem 5%;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+    width: 100%;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+    color: var(--accent);
+}
+
+
+/* ============================================================
+   4. Footer
+   ============================================================ */
+
+footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+footer section {
+    flex: 1;
+    min-width: 200px;
+}
+
+footer h3 {
+    margin-bottom: 1rem;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+footer ul li a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer ul li a:hover {
+    color: var(--accent);
+}
+
+footer table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+footer table th,
+footer table td {
+    text-align: left;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+}
+
+footer p {
+    width: 100%;
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.admin-footer-link {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+}
+
+.admin-footer-link a {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.admin-footer-link a:hover {
+    text-decoration: underline;
+}
+
+/* --- روابط التواصل الاجتماعي --- */
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.social-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-links li a:hover {
+    transform: translateY(-3px);
+    background: var(--accent);
+    color: #080808;
+}
+
+.social-links li a i {
+    font-size: 1.3rem;
+}
+
+
+/* ============================================================
+   5. Page Header (مشترك بين الصفحات الداخلية)
+   ============================================================ */
+
+.page-header {
+    text-align: center;
+    padding: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.page-header p {
+    color: #cccccc;
+}
+
+
+/* ============================================================
+   6. الصفحة الرئيسية
+   ============================================================ */
+
+/* --- Hero --- */
+#hero {
+    position: relative;
+    background-image: url(../imag/img1.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+#hero h1,
+#hero p,
+#hero .cta-btn {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+#hero h1 {
+    font-size: 3rem;
+}
+
+#hero p {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+}
+
+/* --- Live Stats --- */
+#live-stats {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+#live-stats h2 {
+    margin-bottom: 2rem;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(226, 229, 33, 0.1);
+    border-radius: 15px;
+    min-width: 180px;
+    transition: transform 0.3s;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--accent);
+    display: block;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* --- Facilities --- */
+#facilities {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 3rem 2rem;
+}
+
+#facilities h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* --- Plans (الصفحة الرئيسية) --- */
+#plans {
+    padding: 3rem 2rem;
+}
+
+#plans h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.plans-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+/* --- Card (مشترك: Facilities + Plans) --- */
+#facilities .card,
+#plans .card {
+    background: #f5f5f5;
+    color: #080808;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#facilities .card:hover,
+#plans .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#plans ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#plans ul li {
+    padding: 0.3rem 0;
+}
+
+#plans a.cta-btn {
+    margin-top: 1rem;
+}
+
+
+/* ============================================================
+   7. صفحة الحصص
+   ============================================================ */
+
+.classes-table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 8px;
+}
+
+.classes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.classes-table caption {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.classes-table thead {
+    background: var(--accent);
+    color: #080808;
+}
+
+.classes-table th,
+.classes-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.classes-table tbody tr:nth-child(even) {
+    background: #141414;
+}
+
+.classes-table tbody tr:nth-child(odd) {
+    background: #1c1c1c;
+}
+
+.classes-table tbody tr:hover {
+    background: #2a2a2a;
+    transition: background 0.3s;
+}
+
+.classes-table a {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.classes-table a:hover {
+    text-decoration: underline;
+}
+
+#classes p {
+    text-align: center;
+    width: 100%;
+}
+
+/* --- Sortable --- */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+}
+
+.sortable:hover {
+    background: rgba(231, 76, 60, 0.3);
+}
+
+/* --- فلاتر الحصص --- */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #1a1a1a;
+    border-radius: 12px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#trainerFilter {
+    padding: 8px 12px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* --- أزرار الأيام والمستوى --- */
+.day-buttons,
+.difficulty-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.day-btn,
+.difficulty-btn {
+    padding: 8px 16px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.day-btn:hover,
+.difficulty-btn:hover {
+    background: #3a3a3a;
+    transform: translateY(-2px);
+}
+
+.day-btn.active,
+.difficulty-btn.active {
+    background: var(--accent);
+    color: #080808;
+    border-color: var(--accent);
+}
+
+
+/* ============================================================
+   8. صفحة المدربين
+   ============================================================ */
+
+#trainers-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#trainers-info article {
+    flex: 0 0 300px;
+    width: 300px;
+    max-width: 350px;
+    background: #1c1c1c;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#trainers-info article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#trainers-info figure img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+#trainers-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+}
+
+#trainers-info p {
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+#trainers-info a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--accent);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#trainers-info a:hover {
+    text-decoration: underline;
+}
+
+/* --- بحث المدربين --- */
+.search-container {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+}
+
+.search-box {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    background: #1c1c1c;
+    border: 2px solid #444;
+    border-radius: 50px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+.search-box::placeholder {
+    color: #888;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    width: 100%;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--accent);
+}
+
+/* --- قسم التوظيف --- */
+#recruitment {
+    background: var(--primary);
+    color: var(--text);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 15px;
+    max-width: 800px;
+    margin: 3rem auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#recruitment h2 {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+#recruitment p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #cccccc;
+}
+
+#recruitment a {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--accent);
+    color: #080808;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+#recruitment a:hover {
+    background: #d4d500;
+    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+}
+
+#recruitment address {
+    margin-top: 2rem;
+    font-style: normal;
+    color: #bbbbbb;
+    line-height: 1.6;
+}
+
+/* --- Modal المدربين --- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+    position: relative;
+    text-align: right;
+    padding: 1rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    background: #e74c3c;
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 0 2rem 2rem;
+    text-align: center;
+}
+
+.modal-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: -40px auto 1rem;
+    display: block;
+    border: 4px solid var(--accent);
+    background: #1c1c1c;
+}
+
+.modal-body h2 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.modal-specialty {
+    display: inline-block;
+    background: var(--accent);
+    color: #080808;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.modal-detail {
+    text-align: left;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #0a0a0a;
+    border-radius: 10px;
+}
+
+.modal-detail p {
+    margin: 0.5rem 0;
+    color: #ccc;
+}
+
+.modal-detail strong {
+    color: var(--accent);
+}
+
+.schedule-list {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule-list li {
+    padding: 8px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+}
+
+.schedule-list li:last-child {
+    border-bottom: none;
+}
+
+.schedule-day {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.modal-bio {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #0a0a0a;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   9. صفحة العضوية
+   ============================================================ */
+
+#membership-plans {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+#membership-plans h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.plans-grid article {
+    background: #f5f5f5;
+    color: #080808;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+     
+}
+
+.plans-grid article:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+#membership-plans h3 {
+    margin-bottom: 0.5rem;
+}
+
+#membership-plans dl {
+    margin-top: 1rem;
+}
+
+#membership-plans dt {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+#membership-plans dd {
+    margin-bottom: 0.4rem;
+}
+
+#membership-plans article:nth-child(3) {
+    border: 3px solid var(--accent);
+    position: relative;
+}
+
+.recommended {
+    border: 3px solid var(--accent);
+}
+
+.recommended::before {
+    content: "Recommended";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #080808;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    list-style: none;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+} 
+.plan-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: var(--accent);
+}
+
+.select-plan-btn {
+    margin-top: 15px;
+    width: 100%;
+    background: var(--accent);
+    color: #080808;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.select-plan-btn:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+.cart-bar {
+    position: sticky;
+    top: 0;
+    background: #1a1a1a;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--accent);
+    z-index: 100;
+}
+
+.cart-bar button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cart-bar button:hover {
+    background: #c0392b;
+}
+
+#registration {
+    padding: 3rem 2rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+#registration h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 2px solid #555;
+    background: #111;
+    color: white;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px var(--accent);
+}
+
+.plan-selected-badge {
+    background: #2ecc71;
+    color: #080808;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    color: #888;
+}
+
+#payment-methods {
+    text-align: center;
+    padding: 2rem;
+}
+
+#payment-methods p {
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+
+/* ============================================================
+   10. صفحة الاتصال
+   ============================================================ */
+
+#contact-wrapper {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+#contact-form,
+#contact-info {
+    background: var(--primary);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#contact-form {
+    flex: 2;
+}
+
+#contact-info {
+    flex: 1;
+    align-self: flex-start;
+}
+
+#contact-form h2,
+#contact-info h2 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#contact-form label {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #111;
+    color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+}
+
+#contact-form button {
+    color: #080808;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#contact-form button:hover {
+    background: #d4d500;
+    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+}
+
+#contact-info address {
+    color: #cccccc;
+    line-height: 1.8;
+    font-style: normal;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+#contact-info a {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-decoration: none;
+    margin-top: 0.5rem;
+}
+
+#contact-info a:hover {
+    text-decoration: underline;
+}
+
+#map {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+#map iframe {
+    width: 100%;
+    max-width: 700px;
+    height: 300px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#opening-hours {
+    margin: 3rem auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+#opening-hours table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--primary);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#opening-hours th,
+#opening-hours td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+}
+
+#opening-hours th {
+    color: #1d1c1c;
+}
+
+#opening-hours td {
+    color: #e7e2e2;
+}
+
+#opening-hours thead {
+    background: var(--accent);
+    color: #080808;
+}
+
+#opening-hours tbody tr:nth-child(even) {
+    background: #141414;
+}
+
+#opening-hours tbody tr:nth-child(odd) {
+    background: #1c1c1c;
+}
+
+#opening-hours tbody tr:hover {
+    background: #2a2a2a;
+    transition: background 0.3s;
+}
+
+.admin-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #1a1a1a;
+    border-radius: 15px;
+}
+
+.admin-section h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.messages-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.message-item {
+    background: #0a0a0a;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+}
+
+.message-item strong {
+    color: var(--accent);
+}
+
+.message-item small {
+    color: #888;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.clear-storage-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: auto;
+}
+
+.clear-storage-btn:hover {
+    background: #c0392b;
+}
+
+
+/* ============================================================
+   11. Responsive — نقاط التكيف الموحدة
+   ============================================================ */
+
+/* --- 992px --- */
+@media (max-width: 992px) {
+
+    #facilities,
+    .plans-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .stats-container {
+        gap: 2rem;
+    }
+
+    .stat-item {
+        min-width: 150px;
+        padding: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    #trainers-info article {
+        flex: 0 0 280px;
+        width: 280px;
+    }
+
+    #contact-wrapper {
+        gap: 1.5rem;
+        padding: 0 1.5rem;
+    }
+
+    .classes-table caption {
+        font-size: 1.3rem;
+    }
+
+    .classes-table th,
+    .classes-table td {
+        padding: 10px 8px;
+        font-size: 0.95rem;
+    }
+
+    .badge {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* --- 768px --- */
+@media (max-width: 768px) {
+
+    /* Navigation */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .logo {
+        margin-bottom: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    /* Hero */
+    #hero h1 {
+        font-size: 2rem;
+    }
+
+    #hero p {
+        font-size: 1rem;
+    }
+
+    /* Grids */
+    #facilities,
+    .plans-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 2rem 1rem;
+    }
+
+    /* Stats */
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    /* Footer */
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer table {
+        margin: 0 auto;
+        width: auto;
+    }
+
+    /* Social */
+    .social-links {
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .social-links li a {
+        width: 40px;
+        height: 40px;
+    }
+
+    .social-links li a i {
+        font-size: 1.1rem;
+    }
+
+    /* Classes Table */
+    .classes-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 1.5rem 0;
+        border-radius: 6px;
+    }
+
+    .classes-table table {
+        min-width: 700px;
+    }
+
+    .classes-table caption {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .classes-table th,
+    .classes-table td {
+        padding: 10px 6px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .badge {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .classes-table::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .classes-table::-webkit-scrollbar-track {
+        background: #1a1a1a;
+        border-radius: 10px;
+    }
+
+    .classes-table::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 10px;
+    }
+
+    #classes p {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+
+    /* Filters */
+    .filters-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    .day-buttons,
+    .difficulty-buttons {
+        justify-content: center;
+    }
+
+    .day-btn,
+    .difficulty-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* Trainers */
+    #trainers-info article {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    /* Modal */
+    .modal-body {
+        padding: 0 1rem 1.5rem;
+    }
+
+    .modal-img {
+        width: 120px;
+        height: 120px;
+        margin-top: -30px;
+    }
+
+    .modal-body h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Membership Plans */
+    #membership-plans {
+        grid-template-columns: 1fr;
+    }
+
+    /* Contact */
+    #contact-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+}
+
+/* --- 576px --- */
+@media (max-width: 576px) {
+    .classes-table table {
+        min-width: 650px;
+    }
+
+    .classes-table caption {
+        font-size: 1.1rem;
+    }
+
+    .classes-table th,
+    .classes-table td {
+        padding: 8px 4px;
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        padding: 3px 6px;
+        font-size: 0.65rem;
+        border-radius: 15px;
+    }
+
+    #classes p {
+        font-size: 0.85rem;
+        padding: 0.8rem;
+    }
+}
+
+/* --- 480px --- */
+@media (max-width: 480px) {
+    #hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-header p {
+        font-size: 0.9rem;
+    }
+
+    #contact-wrapper {
+        padding: 0 0.8rem;
+    }
+}
+

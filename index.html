@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force One Gym - Home</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body class="home-page">
+
+    <!-- Navigation Section -->
+    <header class="site-header">
+        <nav class="navbar">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <img src="imag/logo.jpg" alt="Force One Gym Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="trainers.html">Trainers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="overlay"></div>
+            <h1>Force One Gym</h1>
+            <p>Build Strength • Transform Your Body • Unlock Your Potential</p>
+            <a href="membership.html" class="cta-btn">Join Now</a>
+        </section>
+
+        <!-- Live Stats Section - Dynamic -->
+        <section id="live-stats">
+            <h2>📊 Our Community Stats</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-icon">👥</span>
+                    <span class="stat-number" id="totalMembers">0</span>
+                    <span class="stat-label">Happy Members</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🏋️</span>
+                    <span class="stat-number" id="totalClasses">0</span>
+                    <span class="stat-label">Weekly Classes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-number" id="popularPlan">-</span>
+                    <span class="stat-label">Most Popular Plan</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Facilities Section -->
+        <section id="facilities">
+            <h2>Our Facilities</h2>
+
+            <article class="card">
+                <h3>🏃 Cardio Room</h3>
+                <p>Equipped with modern treadmills, bikes, and rowing machines.</p>
+            </article>
+            <article class="card">
+                <h3>🏋️ Weights Area</h3>
+                <p>Free weights and strength machines for all fitness levels.</p>
+            </article>
+            <article class="card">
+                <h3>🏊 Swimming Pool</h3>
+                <p>Indoor heated pool available for members all year round.</p>
+            </article>
+
+        </section>
+
+        <!-- Membership Plans Section - Dynamic -->
+        <section id="plans">
+            <h2>Membership Plans</h2>
+            <div class="plans-container" id="dynamicPlans">
+                <!-- Plans will be loaded dynamically from localStorage -->
+                <div class="card">
+                    <h3>Loading...</h3>
+                    <p>Please wait while we load our plans.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Contact Info -->
+        <section>
+            <h3>Contact Us</h3>
+            <address>
+                Force One Gym<br>
+                UV2, Ali Mendjeli<br>
+                Constantine, Algeria<br>
+                Phone: +213664763765<br>
+                Email: ForceOneGym@gmail.com
+            </address>
+        </section>
+
+        <!-- Social Media -->
+        <section>
+            <h3>Follow Us</h3>
+            <ul class="social-links">
+                <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
+            </ul>
+        </section>
+
+        <!-- Opening Hours -->
+        <section>
+            <h3>Opening Hours</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Saturday - Wednesday</td>
+                        <td>6:00 - 22:00</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>6:00 - 14:00</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>Closed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Admin Access -->
+        <section>
+            <h3>Admin Access</h3>
+            <p><a href="admin-login.html" style="color: #e2e521;">🔐 Admin Login</a></p>
+        </section>
+
+        <p>&copy; 2026 Force One Gym. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/data-config.js"></script>
+   <script src="js/main.js"></script>
+</body>
+
+</html>

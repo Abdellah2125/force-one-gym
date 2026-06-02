@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Messages</title>
+    <link rel="stylesheet" href="css/admin.css">
+
+
+</head>
+
+<body>
+
+    <header>
+        <h1>Contact Messages</h1>
+    </header>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="admin-members.html">Members</a></li>
+                <li><a href="admin-classes.html">Classes</a></li>
+                <li><a href="admin-plans.html">Plans</a></li>
+                <li><a class="active" href="admin-messages.html">📩 Contact Messages</a></li>
+                <li style="margin-top: 50px;">
+                    <a href="#" onclick="logout()" style="color: #e74c3c;">🚪 Logout</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="content">
+
+            <div class="top-bar"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 style="margin: 0;">📩 Contact Messages</h1>
+                <div class="admin-info">👋 Welcome, <span id="adminName">Admin</span></div>
+            </div>
+
+            <!-- Stats -->
+            <section class="card">
+                <h2>Messages Stats</h2>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div>Total Messages</div>
+                        <div class="stat-number" id="totalMessages">0</div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div>Unread</div>
+                        <div class="stat-number" id="unreadMessages">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages -->
+            <section class="card">
+                <h2>Messages List</h2>
+
+                <div id="messagesContainer">
+                    <p style="text-align:center;">Loading messages...</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/data-config.js"></script>
+    <script src="js/admin.js"></script>
+     
+
+</body>
+
+</html>
