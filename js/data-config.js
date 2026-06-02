@@ -15,19 +15,21 @@ const STORAGE_KEYS = {
 // ========== 2. البيانات الافتراضية الموحدة ==========
 const DEFAULT_DATA = {
     classes: [
-        { id: 1, name: "Bodybuilding Basics", trainer: "Abdellah Ahmed", day: "Sunday", time: "16:00 - 18:00", duration: 120, difficulty: "Beginner", capacity: 20 },
-        { id: 2, name: "Boxing Training", trainer: "Ahmed Mounir", day: "Monday", time: "18:00 - 19:30", duration: 90, difficulty: "Intermediate", capacity: 15 },
-        { id: 3, name: "Karate", trainer: "Ahmed Khaled", day: "Sunday", time: "20:00 - 21:30", duration: 90, difficulty: "All Levels", capacity: 25 },
-        { id: 4, name: "HIIT Workout", trainer: "Khalil Mohamed", day: "Thursday", time: "20:00 - 21:00", duration: 60, difficulty: "Advanced", capacity: 12 },
-        { id: 5, name: "Weightlifting", trainer: "Anes Salem", day: "Saturday", time: "10:00 - 11:30", duration: 90, difficulty: "Intermediate", capacity: 10 }
+        { id: 1, name: "Bodybuilding Basics", trainer: "Omar Benali", day: "Sunday", time: "16:00 - 18:00", duration: 120, difficulty: "Beginner", capacity: 20 },
+        { id: 2, name: "Boxing Training", trainer: "Yacine Bensalem", day: "Monday", time: "18:00 - 19:30", duration: 90, difficulty: "Intermediate", capacity: 15 },
+        { id: 3, name: "Karate", trainer: "Walid Mansouri", day: "Sunday", time: "20:00 - 21:30", duration: 90, difficulty: "All Levels", capacity: 25 },
+        { id: 4, name: "HIIT Workout", trainer: "Karim Haddad", day: "Thursday", time: "20:00 - 21:00", duration: 60, difficulty: "Advanced", capacity: 12 },
+        { id: 5, name: "Weightlifting", trainer: "Samir Bouzid", day: "Saturday", time: "10:00 - 11:30", duration: 90, difficulty: "Intermediate", capacity: 10 }
     ],
+
     members: [
-        { id: 1, name: "Ahmed Benyahia", email: "ahmed@example.com", phone: "0555123456", plan: "Gold", joinDate: "2024-01-15" },
-        { id: 2, name: "Sara Khalid", email: "sara@example.com", phone: "0555234567", plan: "Silver", joinDate: "2024-01-20" },
-        { id: 3, name: "Mohamed Ali", email: "mohamed@example.com", phone: "0555345678", plan: "Bronze", joinDate: "2024-02-01" },
-        { id: 4, name: "Fatima Zahra", email: "fatima@example.com", phone: "0555456789", plan: "Gold", joinDate: "2024-02-10" },
-        { id: 5, name: "Youssef Rachid", email: "youssef@example.com", phone: "0555567890", plan: "Silver", joinDate: "2024-02-15" }
+        { id: 1, name: "Amine Boudiaf", email: "amine@example.com", phone: "0555123456", plan: "Gold", joinDate: "2024-01-15" },
+        { id: 2, name: "Riad Cherif", email: "riad@example.com", phone: "0555234567", plan: "Silver", joinDate: "2024-01-20" },
+        { id: 3, name: "Nassim Touati", email: "nassim@example.com", phone: "0555345678", plan: "Bronze", joinDate: "2024-02-01" },
+        { id: 4, name: "Sofiane Meziane", email: "sofiane@example.com", phone: "0555456789", plan: "Gold", joinDate: "2024-02-10" },
+        { id: 5, name: "Abderrahmane Khelifi", email: "abderrahmane@example.com", phone: "0555567890", plan: "Silver", joinDate: "2024-02-15" }
     ],
+
     plans: [
         { id: 1, name: "Bronze", price: "2000 DA", duration: "1 Month", features: "Gym Access, 2 Classes/Week, Locker Access" },
         { id: 2, name: "Silver", price: "8000 DA", duration: "3 Months", features: "Unlimited Access, Pool, Locker Access" },

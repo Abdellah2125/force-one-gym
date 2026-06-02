@@ -212,29 +212,44 @@ function initClassesPage() {
 
 const trainersData = [
     {
-        id: 1, name: "Abdellah Ahmed", specialty: "Bodybuilding", experience: "8 years",
-        bio: "Certified fitness coach specializing in muscle building and strength training. Abdellah has helped over 500 clients achieve their bodybuilding goals with personalized workout plans and nutrition guidance.",
+        id: 1,
+        name: "Omar Benali",
+        specialty: "Bodybuilding",
+        experience: "8 years",
+        bio: "Certified fitness coach specializing in muscle building and strength training. Omar has helped hundreds of clients achieve their bodybuilding goals through personalized workout plans and nutrition guidance.",
         image: "imag/trainers 1.jpg",
         schedule: [
             { day: "Monday", time: "10:00 - 12:00", class: "Bodybuilding Basics" },
             { day: "Wednesday", time: "16:00 - 18:00", class: "Advanced Strength" },
             { day: "Friday", time: "14:00 - 16:00", class: "Muscle Building" }
         ],
-        certifications: ["Certified Personal Trainer (CPT)", "Nutrition Specialist"]
+        certifications: [
+            "Certified Personal Trainer (CPT)",
+            "Nutrition Specialist"
+        ]
     },
     {
-        id: 2, name: "Ahmed Mounir", specialty: "Boxing", experience: "10 years",
-        bio: "Professional boxing trainer focused on endurance and competitive training. Former national champion with expertise in technique, footwork, and fight strategy.",
+        id: 2,
+        name: "Yacine Bensalem",
+        specialty: "Boxing",
+        experience: "10 years",
+        bio: "Professional boxing trainer focused on endurance and competitive training. Former regional champion with expertise in technique, footwork, and fight strategy.",
         image: "imag/trainers 2.jpg",
         schedule: [
             { day: "Monday", time: "18:00 - 19:30", class: "Boxing Training" },
             { day: "Wednesday", time: "19:00 - 20:30", class: "Sparring Session" },
             { day: "Saturday", time: "09:00 - 10:30", class: "Boxing Fundamentals" }
         ],
-        certifications: ["Professional Boxing Coach", "Sports Psychology Certificate"]
+        certifications: [
+            "Professional Boxing Coach",
+            "Sports Psychology Certificate"
+        ]
     },
     {
-        id: 3, name: "Ahmed Khaled", specialty: "Karate", experience: "6 years",
+        id: 3,
+        name: "Walid Mansouri",
+        specialty: "Karate",
+        experience: "6 years",
         bio: "Black belt karate instructor with expertise in traditional and modern techniques. Specializes in self-defense, discipline, and competitive karate training.",
         image: "imag/trainers 3.jpg",
         schedule: [
@@ -242,10 +257,16 @@ const trainersData = [
             { day: "Tuesday", time: "17:00 - 18:30", class: "Self Defense" },
             { day: "Thursday", time: "19:00 - 20:30", class: "Advanced Karate" }
         ],
-        certifications: ["Black Belt 3rd Dan", "Karate Instructor Certification"]
+        certifications: [
+            "Black Belt 3rd Dan",
+            "Karate Instructor Certification"
+        ]
     },
     {
-        id: 4, name: "Khalil Mohamed", specialty: "HIIT Workout", experience: "5 years",
+        id: 4,
+        name: "Karim Haddad",
+        specialty: "HIIT Workout",
+        experience: "5 years",
         bio: "High-intensity interval training expert focused on fat loss and cardiovascular health. Known for energetic classes and motivational coaching style.",
         image: "imag/trainers 4.jpg",
         schedule: [
@@ -253,18 +274,27 @@ const trainersData = [
             { day: "Thursday", time: "20:00 - 21:00", class: "HIIT Workout" },
             { day: "Saturday", time: "11:00 - 12:00", class: "Weekend HIIT" }
         ],
-        certifications: ["HIIT Specialist", "Functional Training Certificate"]
+        certifications: [
+            "HIIT Specialist",
+            "Functional Training Certificate"
+        ]
     },
     {
-        id: 5, name: "Anes Salem", specialty: "Weightlifting", experience: "8 years",
-        bio: "Specialist in Olympic lifting techniques and advanced strength programs. Competed nationally and trains athletes for powerlifting competitions.",
+        id: 5,
+        name: "Samir Bouzid",
+        specialty: "Weightlifting",
+        experience: "8 years",
+        bio: "Specialist in Olympic lifting techniques and advanced strength programs. Experienced in training athletes for strength and powerlifting competitions.",
         image: "imag/trainers 5.jpg",
         schedule: [
             { day: "Monday", time: "09:00 - 10:30", class: "Weightlifting Basics" },
             { day: "Wednesday", time: "14:00 - 15:30", class: "Olympic Lifting" },
             { day: "Saturday", time: "10:00 - 11:30", class: "Advanced Strength" }
         ],
-        certifications: ["Weightlifting Coach Level 2", "Strength and Conditioning Specialist"]
+        certifications: [
+            "Weightlifting Coach Level 2",
+            "Strength and Conditioning Specialist"
+        ]
     }
 ];
 
