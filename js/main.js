@@ -898,6 +898,9 @@ function initIndexPage() {
 document.addEventListener("DOMContentLoaded", () => {
     const page = window.location.pathname.split("/").pop();
 
+    // ✅ استدعاء دالة القائمة المتنقلة
+    initMobileNavigation();
+
     switch (page) {
         case "classes.html": initClassesPage(); break;
         case "trainers.html": initTrainersPage(); break;
@@ -914,3 +917,22 @@ document.addEventListener("DOMContentLoaded", () => {
             else initIndexPage();
     }
 });
+
+// ========== 9. Mobile Navigation Toggle (Hamburger Menu) ==========
+function initMobileNavigation() {
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (!navToggle || !navLinks) return;
+    
+    navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+    });
+    
+    // إغلاق القائمة عند النقر على أي رابط
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+        });
+    });
+}

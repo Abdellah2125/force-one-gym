@@ -14,12 +14,21 @@
 
 <body class="membership-page">
 
-     <!-- ===== شريط التنقل ===== -->
+    <!-- ===== شريط التنقل ===== -->
     <header class="site-header">
         <nav class="navbar">
             <a href="index.html" class="logo">
                 <img src="imag/logo.jpg" alt="Force One Gym Logo">
             </a>
+
+            <!-- زر القائمة للجوال (Hamburger) -->
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="classes.html">Classes</a></li>
@@ -35,14 +44,14 @@
         <h1>Membership Plans</h1>
         <p>Choose the best plan for Gym fitness and register today.</p>
     </div>
-    
+
     <main>
         <section id="membership-plans">
-    <h2>Our Plans</h2>
-    <div id="plans-container" class="plans-grid">
-        <div class="loading">🔄 Loading plans...</div>
-    </div>
-</section>
+            <h2>Our Plans</h2>
+            <div id="plans-container" class="plans-grid">
+                <div class="loading">🔄 Loading plans...</div>
+            </div>
+        </section>
 
         <!-- Registration Form -->
         <section id="registration">
