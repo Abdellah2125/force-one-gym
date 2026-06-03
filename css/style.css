@@ -1,826 +1,1178 @@
 /* ============================================================
-   1. المتغيرات والرسوم المتحركة
+   FORCE ONE GYM — style.css
+   Professional Redesign | Responsive | Dark Athletic Theme
    ============================================================ */
-
-:root {
-    --primary: #1c1c1c;
-    --accent: #e2e521;
-    --bg: #080808;
-    --text: #ffffff;
-    
-    /* إضافة نظام متكامل للتباعد */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-    
-    /* نظام الخطوط المتجاوبة */
-    --font-xs: 0.75rem;
-    --font-sm: 0.875rem;
-    --font-md: 1rem;
-    --font-lg: 1.25rem;
-    --font-xl: 1.5rem;
-    --font-2xl: 2rem;
-    --font-3xl: 2.5rem;
-    --font-4xl: 3rem;
-    
-    /* العروض */
-    --container-sm: 640px;
-    --container-md: 768px;
-    --container-lg: 1024px;
-    --container-xl: 1280px;
-}
-
-/* استخدام المتغيرات */
-.cta-btn {
-    padding: var(--spacing-md) var(--spacing-xl);
-    font-size: var(--font-md);
-}
-
-#hero h1 {
-    font-size: var(--font-4xl);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOut {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
 
 /* ============================================================
-   2. عناصر عامة
+   1. FONTS & IMPORTS
    ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Barlow:wght@300;400;500;600&display=swap');
 
-* {
+/* ============================================================
+   2. CSS VARIABLES
+   ============================================================ */
+:root {
+    /* Brand Colors */
+    --accent: #E8E000;
+    /* signature electric yellow */
+    --accent-dark: #C4BB00;
+    --accent-glow: rgba(232, 224, 0, 0.18);
+
+    /* Backgrounds */
+    --bg: #0A0A0A;
+    --bg-2: #111111;
+    --bg-3: #181818;
+    --bg-4: #222222;
+    --surface: #1A1A1A;
+    --surface-2: #242424;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(232, 224, 0, 0.35);
+
+    /* Text */
+    --text: #F0F0F0;
+    --text-muted: #888888;
+    --text-faint: #555555;
+
+    /* Status */
+    --success: #22C55E;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --info: #3B82F6;
+
+    /* Plan Colors */
+    --bronze: #CD7F32;
+    --silver: #A8B5C2;
+    --gold: #FFD700;
+
+    /* Difficulty */
+    --beginner: #22C55E;
+    --intermediate: #F59E0B;
+    --advanced: #EF4444;
+    --all-levels: #3B82F6;
+
+    /* Typography */
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+
+    /* Spacing Scale */
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-5: 1.25rem;
+    --sp-6: 1.5rem;
+    --sp-8: 2rem;
+    --sp-10: 2.5rem;
+    --sp-12: 3rem;
+    --sp-16: 4rem;
+    --sp-20: 5rem;
+
+    /* Border Radius */
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 12px;
+    --r-xl: 16px;
+    --r-2xl: 24px;
+    --r-pill: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-accent: 0 0 20px rgba(232, 224, 0, 0.25);
+
+    /* Transitions */
+    --t-fast: 0.15s ease;
+    --t-normal: 0.25s ease;
+    --t-slow: 0.4s ease;
+
+    /* Container */
+    --container: 1200px;
+}
+
+/* ============================================================
+   3. RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-body);
     background: var(--bg);
     color: var(--text);
-    width: 100%;
+    line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
-h4 {
-    font-family: 'Oswald', sans-serif;
+h4,
+h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+}
+
+img {
+    display: block;
+    max-width: 100%;
 }
 
 a {
     color: var(--accent);
     text-decoration: none;
+    transition: color var(--t-fast);
 }
 
-/* --- زر CTA العام --- */
-.cta-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.8rem 1.6rem;
-    background: var(--accent);
-    border-radius: 5px;
-    color: #080808;
-    font-weight: bold;
-    transition: background 0.3s, box-shadow 0.3s;
+a:hover {
+    color: var(--accent-dark);
+}
+
+ul {
+    list-style: none;
+}
+
+/* ============================================================
+   4. LAYOUT UTILITIES
+   ============================================================ */
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--sp-6);
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-bottom: var(--sp-8);
     position: relative;
-    z-index: 1;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.cta-btn:hover {
-    background: #d4d500;
-    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    margin: var(--sp-3) auto 0;
+    border-radius: var(--r-pill);
 }
 
-/* --- أزرار عامة --- */
+/* ============================================================
+   5. BUTTONS
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-3) var(--sp-6);
+    border: none;
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--t-normal);
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    color: var(--bg);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+}
+
+.btn-outline:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+.btn-sm {
+    padding: var(--sp-2) var(--sp-4);
+    font-size: 0.85rem;
+}
+
+.btn-block {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Legacy button support */
 button {
-    padding: 0.7rem;
+    padding: 0.65rem 1.2rem;
     background: var(--accent);
     border: none;
-    border-radius: 5px;
-    font-weight: bold;
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     cursor: pointer;
-    color: #080808;
-    transition: background 0.3s;
+    color: var(--bg);
+    transition: all var(--t-normal);
 }
 
 button:hover {
-    background: #d4d500;
+    background: var(--accent-dark);
+    transform: translateY(-1px);
 }
 
 button[type="submit"] {
-    padding: 12px;
+    padding: 14px;
     font-size: 1rem;
-    font-weight: bold;
-    border-radius: 5px;
     width: 100%;
-    transition: background 0.3s, transform 0.2s;
+    border-radius: var(--r-md);
 }
 
 button[type="submit"]:hover {
-    background: #c0392b;
-    transform: scale(1.02);
+    background: var(--accent-dark);
+    box-shadow: var(--shadow-accent);
 }
 
 button[type="submit"]:disabled {
-    background: #666;
+    background: var(--bg-4);
+    color: var(--text-faint);
     cursor: not-allowed;
     transform: none;
 }
 
-/* --- حقول الإدخال العامة --- */
+/* CTA Button (hero) */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin-top: var(--sp-8);
+    padding: var(--sp-4) var(--sp-10);
+    background: var(--accent);
+    border-radius: var(--r-md);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all var(--t-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(-100%);
+    transition: transform var(--t-normal);
+}
+
+.cta-btn:hover {
+    background: var(--accent-dark);
+    color: var(--bg);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-2px);
+}
+
+.cta-btn:hover::before {
+    transform: translateX(100%);
+}
+
+/* ============================================================
+   6. FORM ELEMENTS
+   ============================================================ */
+input,
+select,
+textarea {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="tel"],
-input[type="date"] {
+input[type="date"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
     width: 100%;
-    padding: 0.6rem;
-    margin-top: 0.3rem;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background: #111;
-    color: white;
+    padding: var(--sp-3) var(--sp-4);
+    margin-top: var(--sp-2);
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    color: var(--text);
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    outline: none;
 }
 
-input:focus {
-    outline: none;
+input:focus,
+select:focus,
+textarea:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 5px var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+select option {
+    background: var(--bg-3);
 }
 
 input[type="radio"],
 input[type="checkbox"] {
     accent-color: var(--accent);
-    margin-right: 5px;
-}
-
-/* --- حالات التحقق --- */
-input.error,
-textarea.error {
-    border: 2px solid #e74c3c !important;
-}
-
-input.success,
-textarea.success {
-    border: 2px solid #2ecc71 !important;
-}
-
-.error-message {
-    color: #e74c3c;
-    font-size: 0.75rem;
-    display: block;
-    margin-top: 0.25rem;
-}
-
-.success-message {
-    color: #2ecc71;
-    font-size: 0.75rem;
-    display: block;
-    margin-top: 0.25rem;
-}
-
-/* --- Fieldset --- */
-fieldset {
-    border: 1px solid #444;
-    padding: 1rem;
-    border-radius: 6px;
-}
-
-legend {
-    padding: 0 6px;
-    color: var(--accent);
-}
-
-/* --- Badge المستوى (مشترك: Classes + Admin) --- */
-.badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: white;
-}
-
-.badge.beginner {
-    background: #2ecc71;
-}
-
-.badge.intermediate {
-    background: #f39c12;
-}
-
-.badge.advanced {
-    background: #e74c3c;
-}
-
-.badge.all-levels {
-    background: #3498db;
-}
-
-/* --- Toast Notification --- */
-.toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #2ecc71;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    z-index: 2000;
-    animation: slideInRight 0.3s ease;
-    font-weight: bold;
-}
-
-.toast.error {
-    background: #e74c3c;
-}
-
-.toast i {
-    font-size: 1.2rem;
-}
-
-/* --- إشعار منبثق عام --- */
-.gym-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    color: white;
-    border-radius: 8px;
-    z-index: 3000;
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease;
-}
-
-
-/* ============================================================
-   3. Navigation
-   ============================================================ */
-
-.site-header {
-    width: 100%;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    background-color: var(--primary);
-    padding: 1rem 5%;
-    z-index: 1000;
-}
-
-.logo img {
-    height: 50px;
     width: auto;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
     margin: 0;
     padding: 0;
 }
 
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: var(--sp-1);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.form-group {
+    margin-bottom: var(--sp-5);
+}
+
+fieldset {
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-6);
+    margin-bottom: var(--sp-6);
+}
+
+legend {
+    padding: 0 var(--sp-3);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Validation States */
+input.error,
+textarea.error,
+select.error {
+    border-color: var(--danger) !important;
+}
+
+input.success,
+textarea.success {
+    border-color: var(--success) !important;
+}
+
+.error-message {
+    color: var(--danger);
+    font-size: 0.78rem;
+    display: block;
+    margin-top: var(--sp-1);
+}
+
+.success-message {
+    color: var(--success);
+    font-size: 0.78rem;
+    display: block;
+    margin-top: var(--sp-1);
+}
+
+/* ============================================================
+   7. NAVIGATION
+   ============================================================ */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-3) 5%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    gap: var(--sp-4);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 48px;
+    width: auto;
+    border-radius: var(--r-sm);
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--sp-1);
+    align-items: center;
+}
+
 .nav-links li a {
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 0;
+    display: block;
+    padding: var(--sp-2) var(--sp-3);
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: var(--r-sm);
+    transition: all var(--t-fast);
     position: relative;
-    transition: color 0.3s ease;
 }
 
 .nav-links li a::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
+    bottom: -2px;
+    left: var(--sp-3);
+    right: var(--sp-3);
     height: 2px;
-    background-color: var(--accent);
-    transition: width 0.3s ease;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--t-normal);
+    border-radius: var(--r-pill);
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: var(--accent);
+    background: var(--accent-glow);
 }
 
 .nav-links li a:hover::after,
 .nav-links li a.active::after {
-    width: 100%;
+    transform: scaleX(1);
 }
 
-.nav-links li a.active,
-.nav-links li a:hover {
-    color: var(--accent);
+/* Mobile Menu Toggle (hidden by default, shown on mobile) */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: var(--sp-2);
+    background: none;
+    border: none;
+    transform: none;
 }
 
+.nav-toggle:hover {
+    transform: none;
+    background: none;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all var(--t-normal);
+}
 
 /* ============================================================
-   4. Footer
+   8. PAGE HEADER BANNER
    ============================================================ */
-
-footer {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-footer section {
-    flex: 1;
-    min-width: 200px;
-}
-
-footer h3 {
-    margin-bottom: 1rem;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-}
-
-footer ul li a {
-    color: white;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-footer ul li a:hover {
-    color: var(--accent);
-}
-
-footer table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-footer table th,
-footer table td {
-    text-align: left;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #444;
-}
-
-footer p {
-    width: 100%;
-    flex-basis: 100%;
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    color: #ccc;
-}
-
-.admin-footer-link {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #333;
-}
-
-.admin-footer-link a {
-    color: var(--accent);
-    font-weight: bold;
-}
-
-.admin-footer-link a:hover {
-    text-decoration: underline;
-}
-
-/* --- روابط التواصل الاجتماعي --- */
-.social-links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.social-links li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.social-links li a:hover {
-    transform: translateY(-3px);
-    background: var(--accent);
-    color: #080808;
-}
-
-.social-links li a i {
-    font-size: 1.3rem;
-}
-
-
-/* ============================================================
-   5. Page Header (مشترك بين الصفحات الداخلية)
-   ============================================================ */
-
 .page-header {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    padding: var(--sp-12) var(--sp-6) var(--sp-8);
     text-align: center;
-    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 .page-header h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
     color: var(--text);
 }
 
 .page-header p {
-    color: #cccccc;
+    margin-top: var(--sp-3);
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin-inline: auto;
 }
-
 
 /* ============================================================
-   6. الصفحة الرئيسية
+   9. HERO SECTION
    ============================================================ */
-
-/* --- Hero --- */
 #hero {
     position: relative;
-    background-image: url(../imag/img1.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 80vh;
+    min-height: 92vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: var(--sp-20) var(--sp-6);
+    background:
+        linear-gradient(160deg, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.6) 50%, rgba(10, 10, 10, 0.9) 100%),
+        url('../imag/img1.jpg') center/cover no-repeat;
+    overflow: hidden;
 }
 
-#hero .overlay {
+#hero::before {
+    content: '';
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    z-index: 1;
 }
 
-#hero h1,
-#hero p,
-#hero .cta-btn {
+#hero>* {
     position: relative;
-    z-index: 1;
-    color: white;
+    z-index: 2;
 }
 
 #hero h1 {
-    font-size: 3rem;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    animation: heroIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    line-height: 1;
+}
+
+#hero h1 span {
+    color: var(--accent);
 }
 
 #hero p {
-    font-size: 1.3rem;
-    margin-top: 1rem;
+    margin-top: var(--sp-4);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 300;
+    animation: heroIn 0.8s 0.15s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-/* --- Live Stats --- */
+#hero .cta-btn {
+    animation: heroIn 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   10. LIVE STATS
+   ============================================================ */
 #live-stats {
-    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
-    padding: 3rem 2rem;
+    padding: var(--sp-16) var(--sp-6);
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     text-align: center;
-    margin: 2rem 0;
 }
 
 #live-stats h2 {
-    margin-bottom: 2rem;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    text-transform: uppercase;
+    margin-bottom: var(--sp-10);
+    color: var(--text);
 }
 
 .stats-container {
     display: flex;
     justify-content: center;
-    gap: 4rem;
     flex-wrap: wrap;
-    max-width: 800px;
-    margin: 0 auto;
+    gap: var(--sp-8);
+    max-width: var(--container);
+    margin-inline: auto;
 }
 
 .stat-item {
+    flex: 1;
+    min-width: 160px;
+    max-width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-8) var(--sp-6);
     text-align: center;
-    padding: 1.5rem;
-    background: rgba(226, 229, 33, 0.1);
-    border-radius: 15px;
-    min-width: 180px;
-    transition: transform 0.3s;
+    transition: all var(--t-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--t-normal);
 }
 
 .stat-item:hover {
-    transform: translateY(-5px);
+    border-color: var(--border-accent);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-accent);
 }
 
-.stat-number {
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--accent);
-    display: block;
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: #ccc;
-    margin-top: 0.5rem;
-    display: block;
+.stat-item:hover::before {
+    transform: scaleX(1);
 }
 
 .stat-icon {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--sp-3);
     display: block;
 }
 
-/* --- Facilities --- */
-#facilities {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding: 3rem 2rem;
-}
-
-#facilities h2 {
-    grid-column: 1 / -1;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
- 
-
-/* --- Plans (الصفحة الرئيسية) --- */
-#plans {
-    padding: 3rem 2rem;
-}
-
-#plans h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.plans-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 1rem;
-}
-
-/* --- Card (مشترك: Facilities + Plans) --- */
-#facilities .card,
-#plans .card {
-    background: #f5f5f5;
-    color: #080808;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-#facilities .card:hover,
-#plans .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-#plans ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-}
-
-#plans ul li {
-    padding: 0.3rem 0;
-}
-
-#plans a.cta-btn {
-    margin-top: 1rem;
-}
-
-
-/* ============================================================
-   7. صفحة الحصص
-   ============================================================ */
-
-.classes-table-wrapper {
-    overflow-x: auto;
-    margin: 2rem 0;
-    border-radius: 8px;
-}
-
-.classes-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--primary);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-.classes-table caption {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
     color: var(--accent);
+    line-height: 1;
+    display: block;
 }
 
-.classes-table thead {
-    background: var(--accent);
-    color: #080808;
-}
-
-.classes-table th,
-.classes-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-}
-
-.classes-table tbody tr:nth-child(even) {
-    background: #141414;
-}
-
-.classes-table tbody tr:nth-child(odd) {
-    background: #1c1c1c;
-}
-
-.classes-table tbody tr:hover {
-    background: #2a2a2a;
-    transition: background 0.3s;
-}
-
-.classes-table a {
-    color: var(--accent);
+.stat-label {
+    margin-top: var(--sp-2);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     font-weight: 500;
 }
 
-.classes-table a:hover {
-    text-decoration: underline;
+/* ============================================================
+   11. FACILITIES SECTION
+   ============================================================ */
+#facilities {
+    padding: var(--sp-20) var(--sp-6);
+    max-width: var(--container);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
 }
 
-#classes p {
+#facilities>h2 {
+    grid-column: 1 / -1;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-transform: uppercase;
     text-align: center;
+    margin-bottom: var(--sp-4);
+}
+
+#facilities>h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    margin: var(--sp-3) auto 0;
+    border-radius: var(--r-pill);
+}
+
+#facilities .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-8) var(--sp-6);
+    transition: all var(--t-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+#facilities .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-normal);
+}
+
+#facilities .card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+#facilities .card:hover::after {
+    transform: scaleX(1);
+}
+
+#facilities .card h3 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-3);
+}
+
+#facilities .card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* ============================================================
+   12. PLANS SECTION (Homepage + Membership)
+   ============================================================ */
+#plans {
+    padding: var(--sp-20) var(--sp-6);
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+}
+
+#plans>h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: var(--sp-4);
+}
+
+#plans>h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    margin: var(--sp-3) auto var(--sp-10);
+    border-radius: var(--r-pill);
+}
+
+.plans-container,
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-6);
+    max-width: var(--container);
+    margin-inline: auto;
+}
+
+/* Plan Card */
+.plan-card,
+.plans-grid article,
+.plans-container .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    padding: var(--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    transition: all var(--t-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover,
+.plans-grid article:hover,
+.plans-container .card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Plan tier accent lines */
+.plan-bronze {
+    border-top: 4px solid var(--bronze);
+}
+
+.plan-silver {
+    border-top: 4px solid var(--silver);
+}
+
+.plan-gold {
+    border-top: 4px solid var(--gold);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.12);
+}
+
+.plan-card h3,
+.plans-grid article h3 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.plan-price {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.plan-price span {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+}
+
+.plan-features li {
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: flex;
+    gap: var(--sp-2);
+}
+
+.plan-features li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+.plan-select-btn {
+    margin-top: auto;
+    padding: var(--sp-3) var(--sp-6);
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all var(--t-normal);
     width: 100%;
 }
 
-/* --- Sortable --- */
-.sortable {
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.3s ease;
+.plan-select-btn:hover {
+    background: var(--accent-dark);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-2px);
 }
 
-.sortable:hover {
-    background: rgba(231, 76, 60, 0.3);
+/* ============================================================
+   13. CLASSES PAGE
+   ============================================================ */
+#classes {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: var(--sp-12) var(--sp-6);
 }
 
-/* --- فلاتر الحصص --- */
+.live-badge {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--r-pill);
+    padding: var(--sp-2) var(--sp-5);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Filters */
 .filters-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #1a1a1a;
-    border-radius: 12px;
-    align-items: flex-end;
+    gap: var(--sp-6);
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-6);
+    margin-bottom: var(--sp-8);
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--sp-2);
+    min-width: 0;
 }
 
 .filter-group label {
-    font-weight: bold;
-    color: var(--accent);
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 600;
 }
 
-#trainerFilter {
-    padding: 8px 12px;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
+.filter-group select {
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    color: var(--text);
     font-size: 0.9rem;
+    min-width: 160px;
 }
 
-/* --- أزرار الأيام والمستوى --- */
 .day-buttons,
 .difficulty-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--sp-2);
 }
 
 .day-btn,
 .difficulty-btn {
-    padding: 8px 16px;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 6px;
-    color: white;
+    padding: var(--sp-2) var(--sp-3);
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.85rem;
+    transition: all var(--t-fast);
+    width: auto;
+    transform: none;
 }
 
 .day-btn:hover,
-.difficulty-btn:hover {
-    background: #3a3a3a;
-    transform: translateY(-2px);
-}
-
+.difficulty-btn:hover,
 .day-btn.active,
 .difficulty-btn.active {
     background: var(--accent);
-    color: #080808;
+    color: var(--bg);
     border-color: var(--accent);
+    transform: none;
 }
 
+/* Classes Table */
+.classes-table-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+}
+
+.classes-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.classes-table caption {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: var(--sp-4) var(--sp-6);
+    text-align: left;
+    background: var(--bg-3);
+    border-bottom: 1px solid var(--border);
+}
+
+.classes-table thead {
+    background: var(--bg-3);
+}
+
+.classes-table th {
+    padding: var(--sp-4) var(--sp-5);
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.classes-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.classes-table th.sortable:hover {
+    color: var(--accent);
+}
+
+.classes-table td {
+    padding: var(--sp-4) var(--sp-5);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.classes-table tbody tr {
+    transition: background var(--t-fast);
+}
+
+.classes-table tbody tr:hover {
+    background: var(--surface-2);
+}
+
+.classes-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: var(--sp-1) var(--sp-3);
+    border-radius: var(--r-pill);
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.badge.beginner {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--beginner);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge.intermediate {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--intermediate);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge.advanced {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--advanced);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge.all-levels {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--all-levels);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
 
 /* ============================================================
-   8. صفحة المدربين
+   14. TRAINERS PAGE
    ============================================================ */
 
+.search-container {
+    max-width: 600px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+}
+
+.search-box {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-pill);
+    color: var(--text);
+    transition: all var(--t-normal);
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-box::placeholder {
+    color: var(--text-muted);
+}
+
+/* ===== بطاقات المدربين - متوافقة مع الهيكلة الحالية ===== */
 #trainers-info {
     display: flex;
     flex-wrap: wrap;
@@ -834,19 +1186,26 @@ footer p {
 #trainers-info article {
     flex: 0 0 300px;
     width: 300px;
-    max-width: 350px;
-    background: #1c1c1c;
+    background: var(--surface);
     padding: 1.5rem;
-    border-radius: 15px;
+    border-radius: var(--r-xl);
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    transition: all var(--t-normal);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 #trainers-info article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-accent);
+}
+
+/* توسيط الصورة */
+#trainers-info figure {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
 #trainers-info figure img {
@@ -854,67 +1213,66 @@ footer p {
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 1rem;
+    border: 2px solid var(--accent);
+    transition: transform var(--t-normal);
+}
+
+#trainers-info article:hover figure img {
+    transform: scale(1.03);
+}
+
+#trainers-info figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
 }
 
 #trainers-info h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     color: var(--accent);
+    font-family: var(--font-display);
+    text-transform: uppercase;
 }
 
 #trainers-info p {
-    color: #cccccc;
-    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
     margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+/* تمييز النصوص القوية */
+#trainers-info p strong {
+    color: var(--text);
+    font-weight: 600;
 }
 
 #trainers-info a {
     display: inline-block;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
     color: var(--accent);
     font-weight: bold;
-    transition: 0.3s;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--t-fast);
 }
 
 #trainers-info a:hover {
+    color: var(--accent-dark);
     text-decoration: underline;
 }
 
-/* --- بحث المدربين --- */
-.search-container {
-    max-width: 600px;
-    margin: 2rem auto 0;
-    padding: 0 2rem;
-}
-
-.search-box {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    background: #1c1c1c;
-    border: 2px solid #444;
-    border-radius: 50px;
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.search-box:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
-}
-
-.search-box::placeholder {
-    color: #888;
-}
-
+/* ===== حالة عدم وجود نتائج ===== */
 .no-results {
     text-align: center;
     padding: 3rem;
     width: 100%;
     font-size: 1.2rem;
-    color: #888;
+    color: var(--text-muted);
 }
 
 .no-results i {
@@ -924,53 +1282,54 @@ footer p {
     color: var(--accent);
 }
 
-/* --- قسم التوظيف --- */
+/* ===== قسم التوظيف ===== */
 #recruitment {
-    background: var(--primary);
-    color: var(--text);
+    background: var(--surface);
     padding: 3rem 2rem;
     text-align: center;
-    border-radius: 15px;
+    border-radius: var(--r-xl);
     max-width: 800px;
     margin: 3rem auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
 }
 
 #recruitment h2 {
     font-size: 2rem;
     color: var(--accent);
     margin-bottom: 1rem;
+    font-family: var(--font-display);
+    text-transform: uppercase;
 }
 
 #recruitment p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
-    color: #cccccc;
+    color: var(--text-muted);
 }
 
 #recruitment a {
     display: inline-block;
     padding: 0.8rem 1.5rem;
     background: var(--accent);
-    color: #080808;
+    color: var(--bg);
     font-weight: bold;
-    border-radius: 8px;
-    transition: 0.3s;
+    border-radius: var(--r-md);
+    transition: var(--t-normal);
 }
 
 #recruitment a:hover {
-    background: #d4d500;
-    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+    background: var(--accent-dark);
+    box-shadow: var(--shadow-accent);
 }
 
 #recruitment address {
     margin-top: 2rem;
     font-style: normal;
-    color: #bbbbbb;
+    color: var(--text-muted);
     line-height: 1.6;
 }
 
-/* --- Modal المدربين --- */
+/* ===== Modal للمدربين ===== */
 .modal {
     display: none;
     position: fixed;
@@ -982,47 +1341,47 @@ footer p {
     z-index: 2000;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.3s ease;
 }
 
 .modal.show {
     display: flex;
+    animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
-    background: #1a1a1a;
-    border-radius: 20px;
-    max-width: 600px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    max-width: 550px;
     width: 90%;
     max-height: 85vh;
     overflow-y: auto;
-    position: relative;
     animation: slideUp 0.3s ease;
 }
 
 .modal-header {
-    position: relative;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 1rem;
 }
 
 .close-modal {
-    background: none;
+    background: var(--bg-4);
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     cursor: pointer;
-    color: white;
-    width: 40px;
-    height: 40px;
+    color: var(--text);
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: all var(--t-fast);
 }
 
 .close-modal:hover {
-    background: #e74c3c;
+    background: var(--danger);
     transform: rotate(90deg);
 }
 
@@ -1032,43 +1391,45 @@ footer p {
 }
 
 .modal-img {
-    width: 180px;
-    height: 180px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 50%;
     margin: -40px auto 1rem;
     display: block;
-    border: 4px solid var(--accent);
-    background: #1c1c1c;
+    border: 3px solid var(--accent);
+    background: var(--surface);
 }
 
 .modal-body h2 {
     color: var(--accent);
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
+    font-family: var(--font-display);
 }
 
 .modal-specialty {
     display: inline-block;
     background: var(--accent);
-    color: #080808;
-    padding: 5px 15px;
-    border-radius: 20px;
+    color: var(--bg);
+    padding: 4px 16px;
+    border-radius: var(--r-pill);
     font-weight: bold;
     margin-bottom: 1rem;
+    font-size: 0.85rem;
 }
 
 .modal-detail {
     text-align: left;
     margin: 1.5rem 0;
     padding: 1rem;
-    background: #0a0a0a;
-    border-radius: 10px;
+    background: var(--bg-3);
+    border-radius: var(--r-lg);
 }
 
 .modal-detail p {
     margin: 0.5rem 0;
-    color: #ccc;
+    color: var(--text-muted);
 }
 
 .modal-detail strong {
@@ -1082,7 +1443,7 @@ footer p {
 
 .schedule-list li {
     padding: 8px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
 }
@@ -1099,392 +1460,373 @@ footer p {
 .modal-bio {
     margin-top: 1rem;
     padding: 1rem;
-    background: #0a0a0a;
-    border-radius: 10px;
+    background: var(--bg-3);
+    border-radius: var(--r-lg);
     line-height: 1.6;
+    color: var(--text-muted);
+    text-align: left;
 }
 
 
 /* ============================================================
-   9. صفحة العضوية
+   15. MEMBERSHIP PAGE
    ============================================================ */
-
 #membership-plans {
-    padding: 3rem 2rem;
+    padding: var(--sp-12) var(--sp-6);
     text-align: center;
 }
 
-.plans-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
 #membership-plans h2 {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.plans-grid article {
-    background: #f5f5f5;
-    color: #080808;
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
-    position: relative;
-     
-}
-
-.plans-grid article:hover {
-    transform: translateY(-8px) scale(1.02);
-}
-
-#membership-plans h3 {
-    margin-bottom: 0.5rem;
-}
-
-#membership-plans dl {
-    margin-top: 1rem;
-}
-
-#membership-plans dt {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-#membership-plans dd {
-    margin-bottom: 0.4rem;
-}
-
-#membership-plans article:nth-child(3) {
-    border: 3px solid var(--accent);
-    position: relative;
-}
-
-.recommended {
-    border: 3px solid var(--accent);
-}
-
-.recommended::before {
-    content: "Recommended";
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: #080808;
-    padding: 5px 12px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    list-style: none;
-}
-
-.plan-features {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-} 
-.plan-price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 10px 0;
-    color: var(--accent);
-}
-
-.select-plan-btn {
-    margin-top: 15px;
-    width: 100%;
-    background: var(--accent);
-    color: #080808;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.select-plan-btn:hover {
-    background: #c0392b;
-    transform: scale(1.05);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+    margin-bottom: var(--sp-10);
 }
 
 .cart-bar {
     position: sticky;
-    top: 0;
-    background: #1a1a1a;
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: 8px;
-    margin-bottom: var(--spacing-lg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    border: 2px solid var(--accent);
+    top: 80px;
     z-index: 100;
-    backdrop-filter: blur(10px);
-    background: rgba(26, 26, 26, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    background: var(--surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--r-xl);
+    padding: var(--sp-4) var(--sp-6);
+    margin-bottom: var(--sp-8);
+    box-shadow: var(--shadow-accent);
 }
 
-.cart-bar button {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.cart-bar button:hover {
-    background: #c0392b;
+.cart-bar span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
 }
 
 #registration {
-    padding: 3rem 2rem;
-    max-width: 600px;
-    margin: auto;
+    max-width: 680px;
+    margin-inline: auto;
+    padding: var(--sp-8) var(--sp-6) var(--sp-12);
 }
 
 #registration h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--sp-8);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 5px;
-    border: 2px solid #555;
-    background: #111;
-    color: white;
-    transition: all 0.3s;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 5px var(--accent);
-}
-
-.plan-selected-badge {
-    background: #2ecc71;
-    color: #080808;
-    padding: 8px;
-    border-radius: 5px;
+#planDisplay {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-5);
     text-align: center;
-    font-weight: bold;
-}
-
-.char-counter {
-    text-align: right;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-    color: #888;
+    color: var(--text-muted);
+    font-size: 0.95rem;
 }
 
 #payment-methods {
     text-align: center;
-    padding: 2rem;
+    padding: var(--sp-8) var(--sp-6) var(--sp-16);
+}
+
+#payment-methods h2 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-4);
 }
 
 #payment-methods p {
-    color: #ccc;
+    color: var(--text-muted);
     font-size: 1.1rem;
+    letter-spacing: 0.1em;
 }
 
+/* Char Counter */
+.char-counter {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: var(--sp-1);
+}
 
 /* ============================================================
-   10. صفحة الاتصال
+   16. CONTACT PAGE
    ============================================================ */
-
 #contact-wrapper {
     display: flex;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+    flex-wrap: wrap;
+    gap: var(--sp-8);
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: var(--sp-12) var(--sp-6);
 }
 
 #contact-form,
 #contact-info {
-    background: var(--primary);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-}
-
-#contact-form {
-    flex: 2;
-}
-
-#contact-info {
     flex: 1;
-    align-self: flex-start;
+    min-width: min(100%, 380px);
 }
 
 #contact-form h2,
 #contact-info h2 {
-    color: var(--accent);
-    margin-bottom: 1rem;
-    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-6);
 }
 
-#contact-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-#contact-form label {
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-}
-
-#contact-form input,
-#contact-form textarea {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background: #111;
-    color: white;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-#contact-form input:focus,
-#contact-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-}
-
-#contact-form button {
-    color: #080808;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#contact-form button:hover {
-    background: #d4d500;
-    box-shadow: 0 5px 15px rgba(54, 92, 106, 0.3);
+#contact-info {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-8);
 }
 
 #contact-info address {
-    color: #cccccc;
-    line-height: 1.8;
     font-style: normal;
-    text-align: center;
-    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 2.2;
+    font-size: 0.95rem;
 }
 
-#contact-info a {
-    color: var(--accent);
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-decoration: none;
-    margin-top: 0.5rem;
-}
-
-#contact-info a:hover {
-    text-decoration: underline;
-}
-
+/* Map */
 #map {
-    margin: 3rem 0;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: 0 var(--sp-6) var(--sp-12);
+}
+
+#map h2 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
     text-align: center;
+    margin-bottom: var(--sp-6);
 }
 
 #map iframe {
-    width: 100%;
-    max-width: 700px;
-    height: 300px;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border-radius: var(--r-xl);
+    overflow: hidden;
 }
 
+/* Opening Hours Table */
 #opening-hours {
-    margin: 3rem auto;
-    max-width: 600px;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: 0 var(--sp-6) var(--sp-12);
+}
+
+#opening-hours h3 {
+    font-size: 1.5rem;
+    text-transform: uppercase;
     text-align: center;
+    margin-bottom: var(--sp-6);
 }
 
 #opening-hours table {
-    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
     border-collapse: collapse;
-    background: var(--primary);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #opening-hours th,
 #opening-hours td {
-    padding: 12px;
-    border-bottom: 1px solid #333;
+    padding: var(--sp-3) var(--sp-5);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
 }
 
-#opening-hours th {
-    color: #1d1c1c;
+#opening-hours caption {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--sp-4);
 }
 
-#opening-hours td {
-    color: #e7e2e2;
+/* ============================================================
+   17. TOAST NOTIFICATIONS
+   ============================================================ */
+.toast {
+    position: fixed;
+    bottom: var(--sp-8);
+    right: var(--sp-8);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--success);
+    border-radius: var(--r-lg);
+    padding: var(--sp-4) var(--sp-6);
+    box-shadow: var(--shadow-lg);
+    z-index: 3000;
+    animation: slideInRight 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    max-width: 360px;
 }
 
-#opening-hours thead {
+.toast.error {
+    border-left-color: var(--danger);
+}
+
+.toast.warning {
+    border-left-color: var(--warning);
+}
+
+.toast i {
+    font-size: 1.1rem;
+    color: var(--success);
+}
+
+.toast.error i {
+    color: var(--danger);
+}
+
+.gym-notification {
+    position: fixed;
+    top: var(--sp-5);
+    right: var(--sp-5);
+    padding: var(--sp-3) var(--sp-5);
+    color: white;
+    border-radius: var(--r-lg);
+    z-index: 3000;
+    font-weight: bold;
+    box-shadow: var(--shadow-md);
+    animation: slideIn 0.3s ease;
+}
+
+/* ============================================================
+   18. FOOTER
+   ============================================================ */
+footer {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    padding: var(--sp-16) var(--sp-8) var(--sp-8);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--sp-8);
+}
+
+footer section {}
+
+footer h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    margin-bottom: var(--sp-4);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+footer address {
+    font-style: normal;
+    color: var(--text-muted);
+    line-height: 2;
+    font-size: 0.9rem;
+}
+
+footer address a {
+    color: var(--text-muted);
+}
+
+footer address a:hover {
+    color: var(--accent);
+}
+
+.social-links {
+    display: flex;
+    gap: var(--sp-3);
+    padding: 0;
+}
+
+.social-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: all var(--t-normal);
+}
+
+.social-links li a:hover {
     background: var(--accent);
-    color: #080808;
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: translateY(-3px);
 }
 
-#opening-hours tbody tr:nth-child(even) {
-    background: #141414;
+footer table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-#opening-hours tbody tr:nth-child(odd) {
-    background: #1c1c1c;
+footer table th,
+footer table td {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
 }
 
-#opening-hours tbody tr:hover {
-    background: #2a2a2a;
-    transition: background 0.3s;
+footer p {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border);
 }
 
+.admin-footer-link {
+    margin-top: var(--sp-4);
+}
+
+.admin-footer-link a {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: color var(--t-fast);
+}
+
+.admin-footer-link a:hover {
+    color: var(--accent);
+}
+
+/* ============================================================
+   19. ADMIN SECTION IN CONTACT
+   ============================================================ */
 .admin-section {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #1a1a1a;
-    border-radius: 15px;
+    margin: var(--sp-8) auto;
+    padding: var(--sp-8);
+    background: var(--surface);
+    border-radius: var(--r-xl);
+    border: 1px solid var(--border);
 }
 
 .admin-section h3 {
     color: var(--accent);
-    margin-bottom: 1rem;
+    margin-bottom: var(--sp-4);
     text-align: center;
+    font-size: 1.3rem;
+    text-transform: uppercase;
 }
 
 .messages-list {
@@ -1493,10 +1835,10 @@ form {
 }
 
 .message-item {
-    background: #0a0a0a;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
+    background: var(--bg-3);
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-2);
+    border-radius: var(--r-lg);
     border-left: 3px solid var(--accent);
 }
 
@@ -1505,418 +1847,322 @@ form {
 }
 
 .message-item small {
-    color: #888;
+    color: var(--text-faint);
     display: block;
-    margin-top: 0.5rem;
+    margin-top: var(--sp-2);
 }
 
 .clear-storage-btn {
-    background: #e74c3c;
+    background: var(--danger);
     color: white;
-    padding: 8px 15px;
+    padding: var(--sp-2) var(--sp-4);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--r-md);
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: var(--sp-4);
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     width: auto;
 }
 
 .clear-storage-btn:hover {
-    background: #c0392b;
+    background: #dc2626;
+    transform: none;
 }
-
 
 /* ============================================================
-   11. Responsive — نقاط التكيف الموحدة
+   20. ANIMATIONS
    ============================================================ */
-
-/* --- 992px --- */
-@media (max-width: 992px) {
-
-    #facilities,
-    .plans-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        padding: 2rem 1.5rem;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
 
-    .stats-container {
-        gap: 2rem;
-    }
-
-    .stat-item {
-        min-width: 150px;
-        padding: 1rem;
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-    }
-
-    #trainers-info article {
-        flex: 0 0 280px;
-        width: 280px;
-    }
-
-    #contact-wrapper {
-        gap: 1.5rem;
-        padding: 0 1.5rem;
-    }
-
-    .classes-table caption {
-        font-size: 1.3rem;
-    }
-
-    .classes-table th,
-    .classes-table td {
-        padding: 10px 8px;
-        font-size: 0.95rem;
-    }
-
-    .badge {
-        padding: 4px 10px;
-        font-size: 0.75rem;
+    to {
+        opacity: 1;
     }
 }
 
-/* --- 768px --- */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   21. RESPONSIVE — BREAKPOINTS
+   ============================================================ */
+
+/* ── 1024px ── */
+@media (max-width: 1024px) {
+    #facilities {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ── 768px ── */
 @media (max-width: 768px) {
 
-    .toast {
-        bottom: var(--spacing-md);
-        right: var(--spacing-md);
-        left: var(--spacing-md);
-        max-width: none;
-        text-align: center;
-        justify-content: center;
-    }
-
-    /* Navigation */
+    /* Navbar — Hamburger */
     .navbar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 1rem;
+        padding: var(--sp-3) var(--sp-5);
+        gap: var(--sp-3);
     }
 
-    .logo {
-        margin-bottom: 1rem;
+    .nav-toggle {
+        display: flex;
     }
 
     .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        width: 100%;
-        gap: 0.5rem;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(12px);
+        padding: var(--sp-4) var(--sp-5) var(--sp-6);
+        border-bottom: 1px solid var(--border);
+        gap: 0;
+        animation: slideDown 0.25s ease;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li a {
+        padding: var(--sp-3) var(--sp-4);
+        border-radius: var(--r-md);
+        text-align: left;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     /* Hero */
-    #hero h1 {
-        font-size: 2rem;
-    }
-
-    #hero p {
-        font-size: 1rem;
-    }
-
-    /* Grids */
-    #facilities,
-    .plans-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 2rem 1rem;
+    #hero {
+        min-height: 80vh;
+        padding: var(--sp-16) var(--sp-4);
     }
 
     /* Stats */
     .stats-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
+        gap: var(--sp-4);
     }
 
     .stat-item {
-        width: 100%;
-        max-width: 250px;
+        min-width: 140px;
+        flex: 1 1 140px;
     }
 
-    /* Footer */
-    footer {
-        flex-direction: column;
-        text-align: center;
+    /* Facilities */
+    #facilities {
+        grid-template-columns: 1fr;
+        max-width: 480px;
     }
 
-    footer table {
-        margin: 0 auto;
-        width: auto;
-    }
-
-    /* Social */
-    .social-links {
-        justify-content: center;
-        margin: 1rem 0;
-    }
-
-    .social-links li a {
-        width: 40px;
-        height: 40px;
-    }
-
-    .social-links li a i {
-        font-size: 1.1rem;
-    }
-
-    /* Classes Table */
-    .classes-table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        margin: 1.5rem 0;
-        border-radius: 6px;
-    }
-
-    .classes-table table {
-        min-width: 700px;
-    }
-
-    .classes-table caption {
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
-    }
-
-    .classes-table th,
-    .classes-table td {
-        padding: 10px 6px;
-        font-size: 0.9rem;
-        white-space: nowrap;
-    }
-
-    .badge {
-        padding: 4px 8px;
-        font-size: 0.7rem;
-    }
-
-    .classes-table::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .classes-table::-webkit-scrollbar-track {
-        background: #1a1a1a;
-        border-radius: 10px;
-    }
-
-    .classes-table::-webkit-scrollbar-thumb {
-        background: var(--accent);
-        border-radius: 10px;
-    }
-
-    #classes p {
-        font-size: 0.9rem;
-        padding: 0 1rem;
+    /* Plans */
+    .plans-container,
+    .plans-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
     }
 
     /* Filters */
     .filters-container {
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--sp-4);
     }
 
     .filter-group {
         width: 100%;
     }
 
-    .day-buttons,
-    .difficulty-buttons {
-        justify-content: center;
+    /* Classes table */
+    .classes-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .day-btn,
-    .difficulty-btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+    .classes-table {
+        min-width: 600px;
     }
 
     /* Trainers */
     #trainers-info article {
-        flex: 0 0 100%;
-        width: 100%;
-        max-width: 400px;
+        flex: 0 0 calc(50% - var(--sp-3));
     }
-
-    /* Modal */
-    .modal-body {
-        padding: 0 1rem 1.5rem;
-    }
-
-    .modal-img {
-        width: 120px;
-        height: 120px;
-        margin-top: -30px;
-    }
-
-    .modal-body h2 {
-        font-size: 1.5rem;
-    }
-
-    /* Membership Plans */
-   .plans-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-    
-    /* تحسين البطاقات في الشاشات الصغيرة */
-    .plans-grid article {
-        max-width: 400px;
-        margin: 0 auto;
-        width: 100%;
-    }
-
-    .cart-bar {
-        flex-direction: column;
-        text-align: center;
-        padding: var(--spacing-md);
-    }
-    
-    .cart-bar span {
-        font-size: 0.9rem;
-    }
-    
-    .cart-bar button {
-        width: 100%;
-        max-width: 200px;
-    }
-
-
 
     /* Contact */
     #contact-wrapper {
         flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-}
-
-/* --- 576px --- */
-@media (max-width: 576px) {
-    .classes-table table {
-        min-width: 650px;
     }
 
-    .classes-table caption {
-        font-size: 1.1rem;
+    /* Footer */
+    footer {
+        grid-template-columns: repeat(2, 1fr);
+        padding: var(--sp-10) var(--sp-6) var(--sp-6);
     }
 
-    .classes-table th,
-    .classes-table td {
-        padding: 8px 4px;
-        font-size: 0.85rem;
-    }
-
-    .badge {
-        padding: 3px 6px;
-        font-size: 0.65rem;
-        border-radius: 15px;
-    }
-
-    #classes p {
-        font-size: 0.85rem;
-        padding: 0.8rem;
-    }
-}
-
-/* --- 480px --- */
-@media (max-width: 480px) {
-    #hero h1 {
-        font-size: 1.8rem;
-    }
-
-    .stat-number {
-        font-size: 2rem;
-    }
-
-    .stat-icon {
-        font-size: 1.5rem;
-    }
-
-    .page-header h1 {
-        font-size: 1.5rem;
-    }
-
-    .page-header p {
-        font-size: 0.9rem;
-    }
-
-    #contact-wrapper {
-        padding: 0 0.8rem;
-    }
-
-    .cart-bar {
-        position: relative;
-        border-radius: 0;
-    }
-
+    /* Toast */
     .toast {
-        padding: var(--spacing-sm) var(--spacing-md);
-        font-size: 0.85rem;
+        bottom: var(--sp-4);
+        right: var(--sp-4);
+        left: var(--sp-4);
+        max-width: none;
     }
-    
-    .toast i {
-        font-size: 1rem;
+
+    /* Cart Bar */
+    .cart-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--sp-3);
     }
 }
 
-/* شاشات 375px (iPhone SE) */
+/* ── 576px ── */
+@media (max-width: 576px) {
+    :root {
+        --sp-6: 1.25rem;
+    }
+
+    .page-header {
+        padding: var(--sp-10) var(--sp-4) var(--sp-6);
+    }
+
+    #live-stats {
+        padding: var(--sp-10) var(--sp-4);
+    }
+
+    .stat-item {
+        flex: 0 0 calc(50% - var(--sp-3));
+        min-width: 0;
+    }
+
+    #facilities {
+        padding: var(--sp-10) var(--sp-4);
+        gap: var(--sp-4);
+    }
+
+    #trainers-info {
+        gap: var(--sp-4);
+    }
+
+    #trainers-info article {
+        flex: 0 0 100%;
+        max-width: 380px;
+    }
+
+    .filters-container {
+        padding: var(--sp-4);
+    }
+
+    .day-buttons,
+    .difficulty-buttons {
+        gap: var(--sp-1);
+    }
+
+    .day-btn,
+    .difficulty-btn {
+        padding: var(--sp-1) var(--sp-2);
+        font-size: 0.75rem;
+    }
+
+    footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── 375px (iPhone SE) ── */
 @media (max-width: 375px) {
     #hero h1 {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
-    
-    #hero p {
-        font-size: 0.9rem;
+
+    .stat-item {
+        flex: 0 0 100%;
     }
-    
-    .stat-number {
-        font-size: 1.8rem;
-    }
-    
-    .page-header h1 {
-        font-size: 1.3rem;
-    }
-    
-    .page-header p {
-        font-size: 0.8rem;
-        padding: 0 1rem;
-    }
-    
-    /* تحسين أزرار التصفية */
-    .day-btn, .difficulty-btn {
-        padding: 4px 10px;
-        font-size: 0.7rem;
-    }
-    
-    /* تحسين الـ Modal */
+
     .modal-content {
-        width: 98%;
         max-height: 95vh;
     }
-    
+
     .modal-img {
-        width: 80px;
-        height: 80px;
-        margin-top: -15px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .modal-body {
+        padding: var(--sp-3) var(--sp-4) var(--sp-6);
     }
 }
 
-/* شاشات 320px */
+/* ── 320px ── */
 @media (max-width: 320px) {
-    .navbar {
-        padding: 0.5rem;
-    }
-    
     .logo img {
-        height: 40px;
+        height: 38px;
     }
-    
+
     .nav-links li a {
         font-size: 0.85rem;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
     }
 }
