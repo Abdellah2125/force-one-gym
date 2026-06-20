@@ -1418,6 +1418,8 @@ button[type="submit"] {
         overflow-y: hidden;
         border-right: none;
         border-bottom: 1px solid var(--border);
+        -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+        mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
     }
 
     .sidebar ul {
