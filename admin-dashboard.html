@@ -21,7 +21,7 @@
             <li><a href="admin-classes.html"> Classes</a></li>
             <li><a href="admin-plans.html"> Plans</a></li>
             <li><a href="admin-messages.html">📩 Contact Messages</a></li>
-            <li style="margin-top: 50px;"><a href="#" onclick="logout()" style="color: #e74c3c;">🚪 Logout</a></li>
+            <li><a href="#" class="logout-link" id="logoutBtn">🚪 Logout</a></li>
         </ul>
     </aside>
 
@@ -34,7 +34,7 @@
         <section class="card">
             <h2>📊 Summary Statistics</h2>
             <div class="stats-grid">
-                <div class="stat-card" onclick="window.location.href='admin-members.html'">
+                <div class="stat-card" data-href="admin-members.html">
                     <div class="number" id="totalMembers">0</div>
                     <div class="label">Total Members</div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="number" id="activeSubs">0</div>
                     <div class="label">Active Subscriptions</div>
                 </div>
-                <div class="stat-card" onclick="window.location.href='admin-classes.html'">
+                <div class="stat-card" data-href="admin-classes.html">
                     <div class="number" id="classesPerWeek">0</div>
                     <div class="label">Classes Per Week</div>
                 </div>
@@ -63,7 +63,7 @@
 
         <section class="card">
             <h2>📋 Recent Members</h2>
-            <div style="overflow-x: auto;">
+            <div class="table-responsive">
                 <table>
                     <thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Join Date</th></tr></thead>
                     <tbody id="recentMembers"></tbody>

@@ -23,10 +23,8 @@
                 <li><a class="active" href="#">Classes</a></li>
                 <li><a href="admin-plans.html"> Plans</a></li>
                 <li><a href="admin-messages.html">📩 Contact Messages</a></li>
-                <li style="margin-top: 50px;">
-                    <a href="#" onclick="logout()" style="color: #e74c3c;">
-                        🚪 Logout
-                    </a>
+                <li>
+                    <a href="#" class="logout-link" id="logoutBtn">🚪 Logout</a>
                 </li>
             </ul>
         </aside>
@@ -61,15 +59,13 @@
                         </select>
                         <input id="capacity" type="number" placeholder="Max Capacity" required>
                     </div>
-                    <button type="submit"
-                        style="background: #27ae60; color: white; border: none; padding: 0.8rem; width: 100%;">+ Add
-                        Class</button>
+                    <button type="submit" class="btn-submit-green">+ Add Class</button>
                 </form>
             </section>
 
             <section class="card">
                 <h2>📋 Classes List</h2>
-                <div style="overflow-x: auto;">
+                <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
@@ -115,8 +111,8 @@
             </select>
             <input id="editCapacity" type="number" placeholder="Max Capacity">
             <div class="modal-buttons">
-                <button class="save-btn" onclick="saveEdit()">Save</button>
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="save-btn" id="saveEditBtn">Save</button>
+                <button class="cancel-btn" id="closeEditModal">Cancel</button>
             </div>
         </div>
     </div>

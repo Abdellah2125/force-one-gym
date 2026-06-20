@@ -1204,7 +1204,8 @@ textarea.success {
 /* توسيط الصورة */
 #trainers-info figure {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
@@ -1800,13 +1801,15 @@ footer p {
 }
 
 .admin-footer-link a {
-    color: var(--text-muted);
+    color: var(--accent);
     font-size: 0.9rem;
     transition: color var(--t-fast);
+    opacity: 0.8;
 }
 
 .admin-footer-link a:hover {
     color: var(--accent);
+    opacity: 1;
 }
 
 /* ============================================================

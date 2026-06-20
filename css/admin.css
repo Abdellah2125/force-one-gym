@@ -236,9 +236,12 @@ header p {
     border-color: rgba(59, 130, 246, 0.3);
 }
 
+.sidebar li:last-child {
+    margin-top: auto;
+}
+
 .sidebar li:last-child a {
     color: var(--danger) !important;
-    margin-top: auto;
 }
 
 .sidebar li:last-child a:hover {
@@ -1190,11 +1193,104 @@ button[type="submit"] {
 /* ============================================================
    19. PLANS MANAGEMENT
    ============================================================ */
+.plan-wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
 #plansTable td:nth-child(4) {
     max-width: 260px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* ============================================================
+   19.5. UTILITY CLASSES
+   ============================================================ */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-submit-green {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    width: 100%;
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background var(--t-fast);
+}
+.btn-submit-green:hover {
+    background: #219a52;
+}
+
+.plan-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Loading overlay */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+.loading-overlay.active {
+    display: flex;
+}
+.loading-spinner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-8) var(--sp-10);
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    box-shadow: var(--shadow-lg);
+}
+.loading-spinner::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--sp-4);
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Logout link in sidebar */
+.logout-link {
+    color: var(--danger) !important;
 }
 
 /* ============================================================
@@ -1261,8 +1357,53 @@ button[type="submit"] {
     }
 }
 
+/* ── Member Form ── */
+#memberForm {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#memberForm input,
+#memberForm select {
+    flex: 1;
+    min-width: 160px;
+}
+
+#addMemberBtn {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--r-md, 6px);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+#addMemberBtn:hover {
+    background: #219a52;
+}
+
 /* ── 768px ── */
 @media (max-width: 768px) {
+    #memberForm {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #memberForm input,
+    #memberForm select {
+        flex: unset;
+        min-width: 0;
+    }
+
+    #addMemberBtn {
+        width: 100%;
+        padding: 0.75rem;
+    }
     .admin-layout {
         flex-direction: column;
     }

@@ -23,10 +23,8 @@
                 <li><a href="admin-classes.html">Classes</a></li>
                 <li><a href="admin-plans.html">Plans</a></li>
                 <li><a href="admin-messages.html">📩 Contact Messages</a></li>
-                <li style="margin-top: 50px;">
-                    <a href="#" onclick="logout()" style="color: #e74c3c;">
-                        🚪 Logout
-                    </a>
+                <li>
+                    <a href="#" class="logout-link" id="logoutBtn">🚪 Logout</a>
                 </li>
             </ul>
         </aside>
@@ -48,7 +46,7 @@
 
             <section class="card">
                 <h2>Members List</h2>
-                <div style="overflow-x: auto;">
+                <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
@@ -67,18 +65,17 @@
 
             <section class="card">
                 <h2>Add New Member</h2>
-                <form id="memberForm" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <input type="text" id="name" placeholder="Full Name" required style="flex: 1;">
-                    <input type="email" id="email" placeholder="Email" required style="flex: 1;">
-                    <input type="text" id="phone" placeholder="Phone" required style="flex: 1;">
-                    <select id="plan" style="flex: 1;">
+                <form id="memberForm">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="text" id="phone" placeholder="Phone" required>
+                    <select id="plan">
                         <option>Bronze</option>
                         <option>Silver</option>
                         <option>Gold</option>
                     </select>
-                    <input type="date" id="joinDate" required style="flex: 1;">
-                    <button type="submit" style="background: #27ae60; color: white; border: none; padding: 0 1rem;">+
-                        Add</button>
+                    <input type="date" id="joinDate" required>
+                    <button type="submit" id="addMemberBtn">+ Add</button>
                 </form>
             </section>
         </main>
@@ -87,7 +84,7 @@
     <!-- Edit Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-bottom: 1rem;">✏️ Edit Member</h3>
+            <h3>✏️ Edit Member</h3>
             <input type="text" id="editName" placeholder="Full Name">
             <input type="email" id="editEmail" placeholder="Email">
             <input type="text" id="editPhone" placeholder="Phone">
@@ -98,8 +95,8 @@
             </select>
             <input type="date" id="editJoinDate">
             <div class="modal-buttons">
-                <button class="save-btn" onclick="saveEdit()">Save</button>
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="save-btn" id="saveEditBtn">Save</button>
+                <button class="cancel-btn" id="closeEditModal">Cancel</button>
             </div>
         </div>
     </div>

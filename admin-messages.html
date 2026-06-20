@@ -26,8 +26,8 @@
                 <li><a href="admin-classes.html">Classes</a></li>
                 <li><a href="admin-plans.html">Plans</a></li>
                 <li><a class="active" href="admin-messages.html">📩 Contact Messages</a></li>
-                <li style="margin-top: 50px;">
-                    <a href="#" onclick="logout()" style="color: #e74c3c;">🚪 Logout</a>
+                <li>
+                    <a href="#" class="logout-link" id="logoutBtn">🚪 Logout</a>
                 </li>
             </ul>
         </aside>
@@ -35,9 +35,8 @@
         <!-- Content -->
         <main class="content">
 
-            <div class="top-bar"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h1 style="margin: 0;">📩 Contact Messages</h1>
+            <div class="top-bar">
+                <h1>📩 Contact Messages</h1>
                 <div class="admin-info">👋 Welcome, <span id="adminName">Admin</span></div>
             </div>
 
@@ -63,7 +62,7 @@
                 <h2>Messages List</h2>
 
                 <div id="messagesContainer">
-                    <p style="text-align:center;">Loading messages...</p>
+                    <p class="text-center">Loading messages...</p>
                 </div>
             </section>
 

@@ -214,7 +214,9 @@ function initClassesPage() {
 
 // ========== 4. صفحة المدربين ==========
 
-const trainersData = [
+// بيانات المدربين الافتراضية (fallback)
+// API Contract: GET /api/trainers → Array<{id, name, specialty, experience, bio, image, schedule, certifications}>
+const TRAINERS_FALLBACK = [
     {
         id: 1,
         name: "Omar Benali",
@@ -302,6 +304,12 @@ const trainersData = [
     }
 ];
 
+// دالة جلب المدربين - قابلة للتحويل لاستخدام API
+function getTrainers() {
+    // TODO: استبدال بـ fetch('/api/trainers') عند توفر الـ Backend
+    return TRAINERS_FALLBACK;
+}
+
 function renderTrainers(trainers) {
     const container = document.getElementById("trainers-info");
     if (!container) return;
@@ -317,7 +325,7 @@ function renderTrainers(trainers) {
     }
 
     container.innerHTML = trainers.map(t => `
-        <article data-id="${t.id}" onclick="openTrainerModal(${t.id})">
+        <article data-id="${t.id}">
             <figure>
                 <img src="${escapeHtml(t.image)}" alt="${escapeHtml(t.name)} - ${escapeHtml(t.specialty)} Trainer">
                 <figcaption>${escapeHtml(t.name)} - ${escapeHtml(t.specialty)} Specialist</figcaption>
@@ -326,22 +334,28 @@ function renderTrainers(trainers) {
             <p><strong>Specialty:</strong> ${escapeHtml(t.specialty)}</p>
             <p><strong>Experience:</strong> ${escapeHtml(t.experience)}</p>
             <p>${escapeHtml(t.bio.substring(0, 80))}...</p>
-            <p><a href="#" onclick="event.preventDefault(); openTrainerModal(${t.id})">View Details →</a></p>
+            <p><a href="#" class="view-details-link" data-id="${t.id}">View Details →</a></p>
         </article>
     `).join('');
 }
 
 function openTrainerModal(trainerId) {
-    const trainer = trainersData.find(t => t.id === trainerId);
+    const trainer = getTrainers().find(t => t.id === trainerId);
     if (!trainer) return;
 
     const modal = document.getElementById("trainerModal");
     const modalBody = document.getElementById("modalBody");
     if (!modal || !modalBody) return;
 
-    modalBody.innerHTML = `
-        <img src="${escapeHtml(trainer.image)}" alt="${escapeHtml(trainer.name)}" class="modal-img"
-             onerror="this.src='https://via.placeholder.com/180?text=No+Image'">
+    const img = document.createElement('img');
+    img.src = trainer.image;
+    img.alt = escapeHtml(trainer.name);
+    img.className = 'modal-img';
+    img.addEventListener('error', function () { this.src = 'https://via.placeholder.com/180?text=No+Image'; });
+
+    modalBody.innerHTML = '';
+    modalBody.appendChild(img);
+    modalBody.insertAdjacentHTML('beforeend', `
         <h2>${escapeHtml(trainer.name)}</h2>
         <span class="modal-specialty">${escapeHtml(trainer.specialty)}</span>
         <div class="modal-detail">
@@ -362,7 +376,7 @@ function openTrainerModal(trainerId) {
         <div class="modal-bio">
             <strong>💬 About ${escapeHtml(trainer.name.split(' ')[0])}:</strong>
             <p style="margin-top:10px">${escapeHtml(trainer.bio)}</p>
-        </div>`;
+        </div>`);
 
     modal.classList.add("show");
     document.body.style.overflow = "hidden";
@@ -377,7 +391,7 @@ function filterTrainers() {
     const input = document.getElementById("searchInput");
     if (!input) return;
     const term = input.value.toLowerCase().trim();
-    renderTrainers(trainersData.filter(t =>
+    renderTrainers(getTrainers().filter(t =>
         t.name.toLowerCase().includes(term) ||
         t.specialty.toLowerCase().includes(term) ||
         t.bio.toLowerCase().includes(term)
@@ -385,10 +399,21 @@ function filterTrainers() {
 }
 
 function initTrainersPage() {
-    renderTrainers(trainersData);
+    renderTrainers(getTrainers());
     const searchInput = document.getElementById("searchInput");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modal = document.getElementById("trainerModal");
+    const trainersContainer = document.getElementById("trainers-info");
+
+    // Event delegation للنقر على بطاقات المدربين
+    if (trainersContainer) {
+        trainersContainer.addEventListener("click", e => {
+            const article = e.target.closest("article");
+            const link = e.target.closest(".view-details-link");
+            if (link) { e.preventDefault(); openTrainerModal(parseInt(link.dataset.id)); }
+            else if (article) openTrainerModal(parseInt(article.dataset.id));
+        });
+    }
 
     if (searchInput) {
         let timer;
@@ -492,7 +517,10 @@ function renderPlans() {
                     ${featuresList.map(f => `<li>✓ ${escapeHtml(f)}</li>`).join('')}
                 </ul>
                 <button class="select-plan-btn" 
-                        onclick="selectPlan(${plan.id}, '${escapeHtml(plan.name)}', '${escapeHtml(plan.price)}', '${escapeHtml(plan.duration)}')">
+                        data-plan-id="${plan.id}"
+                        data-plan-name="${escapeHtml(plan.name)}"
+                        data-plan-price="${escapeHtml(plan.price)}"
+                        data-plan-duration="${escapeHtml(plan.duration)}">
                     Select Plan
                 </button>
             </article>
@@ -519,7 +547,7 @@ function updateCartUI() {
     if (!cartDiv) return;
     cartDiv.innerHTML = selectedPlan
         ? `<span>🛒 Selected: <strong>${escapeHtml(selectedPlanName)}</strong> (${escapeHtml(selectedPlanPrice)} / ${escapeHtml(selectedPlanDuration)})</span>
-           <button onclick="clearCart()">✖ Remove</button>`
+           <button class="clear-cart-btn">✖ Remove</button>`
         : `<span>📦 No plan selected</span>`;
 }
 
@@ -606,10 +634,7 @@ function showSuccessMessage(email) {
             <h3 style="margin:1rem 0">Registration Successful!</h3>
             <p>Thank you for joining our gym family!</p>
             <p style="margin-top:1rem;color:#2ecc71">A confirmation email has been sent to ${escapeHtml(email)}</p>
-            <button onclick="this.closest('div').parentElement.remove()"
-                    style="margin-top:1rem;padding:10px 30px;background:#e74c3c;border:none;border-radius:5px;cursor:pointer;color:#fff">
-                Close
-            </button>
+            <button class="close-success-btn">Close</button>
         </div>`;
     document.body.appendChild(overlay);
     overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
@@ -638,6 +663,31 @@ function initMembershipPage() {
     renderPlans();
     loadSavedPlan();
     listenToPlanChanges();
+
+    // Event delegation لاختيار الخطة
+    document.getElementById('plans-container')?.addEventListener('click', e => {
+        const btn = e.target.closest('.select-plan-btn');
+        if (btn) {
+            selectPlan(
+                parseInt(btn.dataset.planId),
+                btn.dataset.planName,
+                btn.dataset.planPrice,
+                btn.dataset.planDuration
+            );
+        }
+    });
+
+    // Event delegation لإزالة الخطة من السلة
+    document.getElementById('cart')?.addEventListener('click', e => {
+        if (e.target.closest('.clear-cart-btn')) clearCart();
+    });
+
+    // Event delegation لزر إغلاق رسالة النجاح
+    document.addEventListener('click', e => {
+        if (e.target.closest('.close-success-btn')) {
+            e.target.closest('div[style*="fixed"]')?.remove();
+        }
+    });
 
     if (!document.querySelector("#animationStyles")) {
         const s = document.createElement("style");

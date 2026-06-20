@@ -7,15 +7,19 @@ if (!window.StorageAPI) {
 }
 
 // ========================================
-// 2. بيانات الاعتماد
+// 2. بيانات الاعتماد (قابلة للاستبدال بـ JWT)
 // ========================================
 
 const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
+// دالة التحقق - يمكن استبدالها لاحقاً بـ JWT/API
+function validateCredentials(username, password) {
+    return username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password;
+}
+
 // ========================================
 // 3. دوال مساعدة عامة
 // ========================================
-
 
 function escapeHtml(str) {
     return window.StorageAPI ? window.StorageAPI.escapeHtml(str) : String(str || '');
@@ -36,7 +40,8 @@ function logout() {
     }
 }
 
-function showToast(message, type = "success") {
+// دالة الإشعارات الموحدة (تستخدم CSS classes من admin.css)
+function showNotification(message, type = "success") {
     const existing = document.querySelector('.toast');
     if (existing) existing.remove();
 
@@ -50,6 +55,30 @@ function showToast(message, type = "success") {
         toast.style.animation = 'slideOut .3s ease';
         setTimeout(() => toast.remove(), 300);
     }, 3000);
+}
+
+// showToast alias للتوافق مع الكود القديم
+function showToast(message, type = "success") {
+    showNotification(message, type);
+}
+
+// دوال التحميل (loading states)
+function showLoading(msg = 'Loading...') {
+    let overlay = document.getElementById('loadingOverlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'loadingOverlay';
+        overlay.className = 'loading-overlay';
+        overlay.innerHTML = `<div class="loading-spinner">${msg}</div>`;
+        document.body.appendChild(overlay);
+    }
+    overlay.querySelector('.loading-spinner').textContent = msg;
+    overlay.classList.add('active');
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.classList.remove('active');
 }
 
 function getPlanEmoji(plan) {
@@ -125,7 +154,7 @@ const LoginPage = {
         const password = document.getElementById('password').value;
         const errorMsg = document.getElementById('error-message');
 
-        if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        if (validateCredentials(username, password)) {
             sessionStorage.setItem('adminLoggedIn', 'true');
             sessionStorage.setItem('adminUsername', username);
             window.location.href = 'admin-dashboard.html';
@@ -170,6 +199,10 @@ const DashboardPage = {
 
     bindEvents() {
         window.addEventListener('storage', () => { this.loadData(); this.render(); });
+        document.querySelector('.stats-grid')?.addEventListener('click', e => {
+            const card = e.target.closest('.stat-card[data-href]');
+            if (card) window.location.href = card.dataset.href;
+        });
     },
 
     render() {
@@ -260,8 +293,19 @@ const MembersPage = {
         document.getElementById('memberForm')?.addEventListener('submit', e => this.addMember(e));
         document.getElementById('search')?.addEventListener('input', () => this.render());
         document.getElementById('planFilter')?.addEventListener('change', () => this.render());
+        document.getElementById('tableBody')?.addEventListener('click', e => this.handleTableClick(e));
+        document.getElementById('saveEditBtn')?.addEventListener('click', () => this.saveEdit());
+        document.getElementById('closeEditModal')?.addEventListener('click', () => this.closeModal());
         window.addEventListener('storage', () => { this.loadData(); this.render(); });
-        window.onclick = e => { if (e.target === document.getElementById('editModal')) this.closeModal(); };
+        window.addEventListener('click', e => { if (e.target === document.getElementById('editModal')) this.closeModal(); });
+    },
+
+    handleTableClick(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = parseInt(btn.dataset.id);
+        if (btn.classList.contains('edit')) this.openEditModal(id);
+        if (btn.classList.contains('delete')) this.deleteMember(id);
     },
 
     addMember(e) {
@@ -276,7 +320,7 @@ const MembersPage = {
         };
 
         if (!newMember.name || !newMember.email) {
-            showToast("Please fill in all required fields!", "error");
+            showNotification("Please fill in all required fields!", "error");
             return;
         }
 
@@ -284,7 +328,7 @@ const MembersPage = {
         this.save();
         this.render();
         e.target.reset();
-        showToast(`✅ Member "${newMember.name}" added successfully!`);
+        showNotification(`✅ Member "${newMember.name}" added successfully!`);
     },
 
     deleteMember(id) {
@@ -294,7 +338,7 @@ const MembersPage = {
             this.members = this.members.filter(m => m.id !== id);
             this.save();
             this.render();
-            showToast(`🗑️ Member "${member.name}" deleted!`, 'error');
+            showNotification(`🗑️ Member "${member.name}" deleted!`, 'error');
         }
     },
 
@@ -323,7 +367,7 @@ const MembersPage = {
             };
             this.save();
             this.render();
-            showToast("✅ Member updated successfully!");
+            showNotification("✅ Member updated successfully!");
         }
         this.closeModal();
     },
@@ -354,11 +398,11 @@ const MembersPage = {
                     <td>${getPlanEmoji(m.plan)} ${escapeHtml(m.plan)}</td>
                     <td>${escapeHtml(m.joinDate)}</td>
                     <td>
-                        <button class="edit"   onclick="window.membersPage.openEditModal(${m.id})">✏️ Edit</button>
-                        <button class="delete" onclick="window.membersPage.deleteMember(${m.id})">🗑️ Delete</button>
+                        <button class="edit" data-id="${m.id}">✏️ Edit</button>
+                        <button class="delete" data-id="${m.id}">🗑️ Delete</button>
                     </td>
                 </tr>`).join('')
-            : '<tr><td colspan="6" style="text-align:center">No members found</td></tr>';
+            : '<tr><td colspan="6" class="text-center">No members found</td></tr>';
 
         if (countEl) countEl.innerText = data.length;
     },
@@ -390,8 +434,19 @@ const ClassesPage = {
 
     bindEvents() {
         document.getElementById('classForm')?.addEventListener('submit', e => this.addClass(e));
+        document.getElementById('tableBody')?.addEventListener('click', e => this.handleTableClick(e));
+        document.getElementById('saveEditBtn')?.addEventListener('click', () => this.saveEdit());
+        document.getElementById('closeEditModal')?.addEventListener('click', () => this.closeModal());
         window.addEventListener('storage', () => { this.loadData(); this.render(); });
-        window.onclick = e => { if (e.target === document.getElementById('editModal')) this.closeModal(); };
+        window.addEventListener('click', e => { if (e.target === document.getElementById('editModal')) this.closeModal(); });
+    },
+
+    handleTableClick(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = parseInt(btn.dataset.id);
+        if (btn.classList.contains('edit')) this.openEditModal(id);
+        if (btn.classList.contains('delete')) this.deleteClass(id);
     },
 
     isDuplicate(trainer, day, time, excludeId = null) {
@@ -407,7 +462,7 @@ const ClassesPage = {
         const time = document.getElementById("time").value;
 
         if (this.isDuplicate(trainer, day, time)) {
-            showToast("❌ Duplicate! Same trainer cannot teach at the same day and time.", 'error');
+            showNotification("❌ Duplicate! Same trainer cannot teach at the same day and time.", 'error');
             return;
         }
 
@@ -426,7 +481,7 @@ const ClassesPage = {
         this.save();
         this.render();
         e.target.reset();
-        showToast(`✅ Class "${newClass.name}" added successfully!`);
+        showNotification(`✅ Class "${newClass.name}" added successfully!`);
     },
 
     deleteClass(id) {
@@ -436,7 +491,7 @@ const ClassesPage = {
             this.classes = this.classes.filter(c => c.id !== id);
             this.save();
             this.render();
-            showToast(`🗑️ Class "${item.name}" deleted!`, 'error');
+            showNotification(`🗑️ Class "${item.name}" deleted!`, 'error');
         }
     },
 
@@ -460,7 +515,7 @@ const ClassesPage = {
         const time = document.getElementById("editTime").value;
 
         if (this.isDuplicate(trainer, day, time, this.editId)) {
-            showToast("❌ Duplicate! Same trainer cannot teach at the same day and time.", 'error');
+            showNotification("❌ Duplicate! Same trainer cannot teach at the same day and time.", 'error');
             return;
         }
 
@@ -478,7 +533,7 @@ const ClassesPage = {
             };
             this.save();
             this.render();
-            showToast("✅ Class updated successfully!");
+            showNotification("✅ Class updated successfully!");
         }
         this.closeModal();
     },
@@ -503,11 +558,11 @@ const ClassesPage = {
                     <td><span class="difficulty-badge ${c.difficulty.toLowerCase().replace(' ', '-')}">${getDifficultyText(c.difficulty)}</span></td>
                     <td>${escapeHtml(c.capacity)}</td>
                     <td>
-                        <button class="edit"   onclick="window.classesPage.openEditModal(${c.id})">✏️ Edit</button>
-                        <button class="delete" onclick="window.classesPage.deleteClass(${c.id})">🗑️ Delete</button>
+                        <button class="edit" data-id="${c.id}">✏️ Edit</button>
+                        <button class="delete" data-id="${c.id}">🗑️ Delete</button>
                     </td>
                 </tr>`).join('')
-            : '<tr><td colspan="8" style="text-align:center">No classes found</td></tr>';
+            : '<tr><td colspan="8" class="text-center">No classes found</td></tr>';
     },
 
     save() {
@@ -537,8 +592,19 @@ const PlansPage = {
 
     bindEvents() {
         document.getElementById('planForm')?.addEventListener('submit', e => this.addPlan(e));
+        document.getElementById('tableBody')?.addEventListener('click', e => this.handleTableClick(e));
+        document.getElementById('saveEditBtn')?.addEventListener('click', () => this.saveEdit());
+        document.getElementById('closeEditModal')?.addEventListener('click', () => this.closeModal());
         window.addEventListener('storage', () => { this.loadData(); this.render(); });
-        window.onclick = e => { if (e.target === document.getElementById('editModal')) this.closeModal(); };
+        window.addEventListener('click', e => { if (e.target === document.getElementById('editModal')) this.closeModal(); });
+    },
+
+    handleTableClick(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = parseInt(btn.dataset.id);
+        if (btn.classList.contains('edit-btn')) this.openEditModal(id);
+        if (btn.classList.contains('delete-btn')) this.deletePlan(id);
     },
 
     addPlan(e) {
@@ -549,7 +615,7 @@ const PlansPage = {
         const features = document.getElementById('features').value.trim();
 
         if (!name || !price || !duration) {
-            showToast('Please fill in all required fields!', 'error');
+            showNotification('Please fill in all required fields!', 'error');
             return;
         }
 
@@ -565,7 +631,7 @@ const PlansPage = {
         this.save();
         this.render();
         e.target.reset();
-        showToast(`✅ "${name}" plan added successfully!`);
+        showNotification(`✅ "${name}" plan added successfully!`);
     },
 
     deletePlan(id) {
@@ -575,7 +641,7 @@ const PlansPage = {
             this.plans = this.plans.filter(p => p.id !== id);
             this.save();
             this.render();
-            showToast(`🗑️ "${plan.name}" plan deleted!`, 'error');
+            showNotification(`🗑️ "${plan.name}" plan deleted!`, 'error');
         }
     },
 
@@ -602,7 +668,7 @@ const PlansPage = {
             };
             this.save();
             this.render();
-            showToast("✅ Plan updated successfully!");
+            showNotification("✅ Plan updated successfully!");
         }
         this.closeModal();
     },
@@ -627,11 +693,11 @@ const PlansPage = {
                     <td>${escapeHtml(plan.duration)}</td>
                     <td>${escapeHtml(plan.features)}</td>
                     <td>
-                        <button class="edit-btn"   onclick="window.plansPage.openEditModal(${plan.id})">✏️ Edit</button>
-                        <button class="delete-btn" onclick="window.plansPage.deletePlan(${plan.id})">🗑️ Delete</button>
+                        <button class="edit-btn" data-id="${plan.id}">✏️ Edit</button>
+                        <button class="delete-btn" data-id="${plan.id}">🗑️ Delete</button>
                     </td>
                 </tr>`).join('')
-            : '<tr><td colspan="5" style="text-align:center">📭 No plans available</td></tr>';
+            : '<tr><td colspan="5" class="text-center">📭 No plans available</td></tr>';
     },
 
     save() {
@@ -709,6 +775,16 @@ const MessagesPage = {
         window.addEventListener('storage', (e) => {
             if (e.key === 'contactMessages') this.loadMessages();
         });
+        document.getElementById('messagesContainer')?.addEventListener('click', e => this.handleMessageClick(e));
+    },
+
+    handleMessageClick(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const id = parseInt(btn.dataset.id);
+        if (btn.classList.contains('btn-mark-read')) this.markAsRead(id);
+        if (btn.classList.contains('btn-delete') && !btn.id) this.deleteMessage(id);
+        if (btn.id === 'deleteAllBtn') this.deleteAllMessages();
     },
 
     render() {
@@ -737,8 +813,8 @@ const MessagesPage = {
                 <div class="message-subject">📌 ${escapeHtml(msg.subject)}</div>
                 <div class="message-content">${escapeHtml(msg.message)}</div>
                 <div class="message-actions">
-                    ${!msg.read ? `<button class="btn-mark-read" onclick="window.messagesPage.markAsRead(${msg.id})">✓ Mark as Read</button>` : ''}
-                    <button class="btn-delete" onclick="window.messagesPage.deleteMessage(${msg.id})">🗑️ Delete</button>
+                    ${!msg.read ? `<button class="btn-mark-read" data-id="${msg.id}">✓ Mark as Read</button>` : ''}
+                    <button class="btn-delete" data-id="${msg.id}">🗑️ Delete</button>
                 </div>
             </div>
         `).join('');
@@ -746,8 +822,9 @@ const MessagesPage = {
         // زر حذف الكل
         if (!document.getElementById('deleteAllBtn') && total > 0) {
             const btnDiv = document.createElement('div');
+            btnDiv.className = 'text-center';
             btnDiv.style.marginTop = '15px';
-            btnDiv.innerHTML = '<button id="deleteAllBtn" class="btn-delete" onclick="window.messagesPage.deleteAllMessages()">🗑️ Delete All Messages</button>';
+            btnDiv.innerHTML = '<button id="deleteAllBtn" class="btn-delete">🗑️ Delete All Messages</button>';
             container.parentElement?.appendChild(btnDiv);
         }
     }
@@ -797,19 +874,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
-// 11. تصدير الدوال العامة
+// 11. إعدادات عامة بعد تحميل الصفحة
 // ========================================
 
+// مستمع عام لزر تسجيل الخروج
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('#logoutBtn, .logout-link');
+    if (btn) logout();
+});
+
+// تصدير الدوال العامة
 window.logout = logout;
 window.showToast = showToast;
-
- 
 window.saveEdit = function () {
     if (window.plansPage && document.getElementById('editPlanName')) { window.plansPage.saveEdit(); return; }
     if (window.classesPage && document.getElementById('editTrainer')) { window.classesPage.saveEdit(); return; }
     if (window.membersPage && document.getElementById('editName')) { window.membersPage.saveEdit(); return; }
 };
-
 window.closeModal = function () {
     window.membersPage?.closeModal();
     window.classesPage?.closeModal();
