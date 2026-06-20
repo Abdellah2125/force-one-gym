@@ -751,7 +751,7 @@ button[type="submit"] {
 }
 
 .stats-badge {
-    display: inline-block;
+    display: block;
     background: var(--primary-light);
     border: 1px solid rgba(59, 130, 246, 0.3);
     color: var(--primary);
@@ -763,7 +763,6 @@ button[type="submit"] {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: var(--sp-4);
-    display: block;
     text-align: center;
 }
 
@@ -1472,6 +1471,14 @@ button[type="submit"] {
         gap: var(--sp-4) !important;
     }
 
+    .plan-section {
+        min-width: 0;
+    }
+
+    #planForm button[type="submit"] {
+        width: 100%;
+    }
+
     .welcome-card {
         flex-direction: column;
         text-align: center;
@@ -1506,7 +1513,6 @@ button[type="submit"] {
 
     /* Table scrollable */
     table {
-        display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
