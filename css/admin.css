@@ -333,7 +333,8 @@ header p {
     box-shadow: var(--shadow-sm);
 }
 
-.card h2 {
+.card h2,
+.plan-section h2 {
     font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -1210,6 +1211,8 @@ button[type="submit"] {
    ============================================================ */
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 .text-center {
@@ -1237,6 +1240,12 @@ button[type="submit"] {
 .plan-section {
     flex: 1;
     min-width: 300px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--sp-6);
+    margin-bottom: var(--sp-6);
+    box-shadow: var(--shadow-sm);
 }
 
 .top-bar {
@@ -1345,7 +1354,18 @@ button[type="submit"] {
    21. RESPONSIVE
    ============================================================ */
 
-/* ── 1024px ── */
+/* ════════════════════════════════════════════════════════════════
+   GENERAL ADMIN RESPONSIVE (shared across all admin pages)
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── ≤ 1200px ── */
+@media (max-width: 1200px) {
+    .plan-wrapper {
+        gap: 1.5rem;
+    }
+}
+
+/* ── ≤ 1024px ── */
 @media (max-width: 1024px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1353,6 +1373,10 @@ button[type="submit"] {
 
     .content {
         padding: var(--sp-6);
+    }
+
+    .plan-wrapper {
+        gap: 1.25rem;
     }
 }
 
@@ -1386,7 +1410,7 @@ button[type="submit"] {
     background: #219a52;
 }
 
-/* ── 768px ── */
+/* ── ≤ 768px ── */
 @media (max-width: 768px) {
     #memberForm {
         flex-direction: column;
@@ -1403,6 +1427,7 @@ button[type="submit"] {
         width: 100%;
         padding: 0.75rem;
     }
+
     .admin-layout {
         flex-direction: column;
     }
@@ -1460,25 +1485,12 @@ button[type="submit"] {
         flex-direction: column;
     }
 
-    .form-row>* {
+    .form-row > * {
         min-width: 0;
     }
 
     .filter-row {
         flex-direction: column;
-    }
-
-    .plan-wrapper {
-        flex-direction: column !important;
-        gap: var(--sp-4) !important;
-    }
-
-    .plan-section {
-        min-width: 0;
-    }
-
-    #planForm button[type="submit"] {
-        width: 100%;
     }
 
     .welcome-card {
@@ -1494,7 +1506,7 @@ button[type="submit"] {
     }
 }
 
-/* ── 576px ── */
+/* ── ≤ 576px ── */
 @media (max-width: 576px) {
     .stats-grid {
         grid-template-columns: 1fr 1fr;
@@ -1513,10 +1525,10 @@ button[type="submit"] {
         padding: var(--sp-3);
     }
 
-    /* Table scrollable */
-    table {
+    /* General table scrollable */
+    .table-responsive {
         overflow-x: auto;
-        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
     }
 
     th,
@@ -1556,7 +1568,7 @@ button[type="submit"] {
     }
 }
 
-/* ── 480px ── */
+/* ── ≤ 480px ── */
 @media (max-width: 480px) {
     header h1 {
         font-size: 1.2rem;
@@ -1579,11 +1591,13 @@ button[type="submit"] {
         width: 95%;
     }
 
-    .card {
+    .card,
+    .plan-section {
         padding: var(--sp-4);
     }
 
-    .card h2 {
+    .card h2,
+    .plan-section h2 {
         font-size: 1rem;
     }
 
@@ -1595,7 +1609,7 @@ button[type="submit"] {
     }
 }
 
-/* ── 360px ── */
+/* ── ≤ 360px ── */
 @media (max-width: 360px) {
     .stats-grid {
         grid-template-columns: 1fr;
@@ -1612,5 +1626,223 @@ button[type="submit"] {
 
     .modal-content {
         padding: var(--sp-4);
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PLANS PAGE RESPONSIVE (.plans-page)
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── ≤ 920px — sections stack naturally ── */
+@media (max-width: 920px) {
+    .plans-page .plan-wrapper {
+        flex-direction: column;
+    }
+
+    .plans-page .plan-section {
+        min-width: 0;
+    }
+
+    .plans-page #planForm button[type="submit"] {
+        width: 100%;
+    }
+}
+
+/* ── ≤ 768px — sidebar changes, tighten up ── */
+@media (max-width: 768px) {
+    .plans-page #plansTable {
+        width: auto;
+        min-width: 100%;
+    }
+
+    .plans-page #plansTable td:nth-child(4) {
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+    }
+
+    .plans-page td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .plans-page td:last-child button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .plans-page .plan-section {
+        padding: var(--sp-5);
+    }
+
+    .plans-page .stats-badge {
+        font-size: 0.75rem;
+        padding: var(--sp-1) var(--sp-3);
+    }
+}
+
+/* ── ≤ 640px — compact table ── */
+@media (max-width: 640px) {
+    .plans-page #plansTable {
+        font-size: 0.8rem;
+    }
+
+    .plans-page #plansTable th,
+    .plans-page #plansTable td {
+        padding: var(--sp-2) var(--sp-2);
+    }
+
+    .plans-page #plansTable th {
+        font-size: 0.7rem;
+    }
+
+    .plans-page .edit-btn,
+    .plans-page .delete-btn {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        min-height: 28px;
+    }
+}
+
+/* ── ≤ 576px — mobile table ── */
+@media (max-width: 576px) {
+    .plans-page .plan-wrapper {
+        gap: var(--sp-4);
+    }
+
+    .plans-page .plan-section {
+        padding: var(--sp-4);
+    }
+
+    .plans-page .plan-section h2 {
+        font-size: 1rem;
+        margin-bottom: var(--sp-4);
+        padding-bottom: var(--sp-3);
+    }
+
+    .plans-page #planForm input,
+    .plans-page #planForm textarea {
+        font-size: 0.85rem;
+        padding: var(--sp-3);
+    }
+
+    .plans-page #planForm button[type="submit"] {
+        padding: var(--sp-3);
+        font-size: 0.85rem;
+    }
+
+    .plans-page .stats-badge {
+        font-size: 0.72rem;
+        padding: 2px var(--sp-3);
+    }
+}
+
+/* ── ≤ 480px — tight mobile ── */
+@media (max-width: 480px) {
+    .plans-page .plan-section {
+        padding: var(--sp-3);
+        border-radius: var(--r-lg);
+    }
+
+    .plans-page .plan-section h2 {
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+    }
+
+    .plans-page #plansTable th,
+    .plans-page #plansTable td {
+        padding: var(--sp-2) var(--sp-1);
+        font-size: 0.75rem;
+    }
+
+    .plans-page .edit-btn,
+    .plans-page .delete-btn {
+        padding: 3px 6px;
+        font-size: 0.65rem;
+        min-height: 26px;
+    }
+}
+
+/* ── ≤ 400px — very small screens ── */
+@media (max-width: 400px) {
+    .plans-page .plan-section {
+        padding: var(--sp-3) var(--sp-2);
+    }
+
+    .plans-page .plan-section h2 {
+        font-size: 0.82rem;
+    }
+
+    .plans-page #plansTable th,
+    .plans-page #plansTable td {
+        padding: var(--sp-1) var(--sp-1);
+        font-size: 0.7rem;
+    }
+
+    .plans-page #planForm input,
+    .plans-page #planForm textarea {
+        font-size: 0.82rem;
+        padding: var(--sp-2);
+    }
+
+    .plans-page #planForm button[type="submit"] {
+        padding: var(--sp-2);
+        font-size: 0.8rem;
+    }
+}
+
+/* ── ≤ 360px — hide Duration column ── */
+@media (max-width: 360px) {
+    .plans-page td:nth-child(3),
+    .plans-page th:nth-child(3) {
+        display: none;
+    }
+
+    .plans-page .plan-section {
+        padding: var(--sp-2);
+    }
+
+    .plans-page .plan-section h2 {
+        font-size: 0.78rem;
+        margin-bottom: var(--sp-3);
+        padding-bottom: var(--sp-2);
+    }
+
+    .plans-page .stats-badge {
+        font-size: 0.65rem;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MEMBERS PAGE RESPONSIVE (.members-page)
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── ≤ 576px ── */
+@media (max-width: 576px) {
+    .members-page td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .members-page td:last-child button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .members-page td:nth-child(2) {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* ── ≤ 360px ── */
+@media (max-width: 360px) {
+    .members-page td:nth-child(3),
+    .members-page th:nth-child(3) {
+        display: none;
     }
 }

@@ -1,38 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membership Plans Management</title>
+    <title>Admin - Plans Management</title>
     <link rel="stylesheet" href="css/admin.css">
-
 </head>
-
-<body>
+<body class="plans-page">
 
     <header>
-        <h1>Membership Plan Management</h1>
+        <h1>Plans Management</h1>
     </header>
 
     <div class="admin-layout">
-        <aside class="sidebar">
-            <ul>
-                <li><a href="admin-dashboard.html"> Dashboard</a></li>
-                <li><a href="admin-members.html"> Members</a></li>
-                <li><a href="admin-classes.html"> Classes</a></li>
-                <li><a class="active" href="#"> Plans</a></li>
-                <li><a href="admin-messages.html">📩 Contact Messages</a></li>
-                <li><a href="#" class="logout-link" id="logoutBtn">🚪 Logout</a></li>
-            </ul>
-        </aside>
+        <aside class="sidebar"></aside>
 
         <main class="content">
             <div class="plan-wrapper">
 
-                <!-- Existing Plans Table -->
                 <section class="plan-section">
-                    <h2>📋 Existing Plans</h2>
+                    <h2>Existing Plans</h2>
                     <div class="stats-badge" id="plansCount">Total Plans: 0</div>
                     <div class="table-responsive">
                         <table id="plansTable">
@@ -54,67 +41,60 @@
                     </div>
                 </section>
 
-                <!-- Add New Plan Form -->
                 <section class="plan-section">
-                    <h2>➕ Add New Plan</h2>
+                    <h2>Add New Plan</h2>
                     <form id="planForm">
                         <div class="form-group">
-                            <label>Plan Name:</label>
+                            <label for="planName">Plan Name:</label>
                             <input type="text" id="planName" required placeholder="e.g., Premium">
                         </div>
-
                         <div class="form-group">
-                            <label>Price:</label>
+                            <label for="price">Price (DA):</label>
                             <input type="number" id="price" required placeholder="e.g., 5000">
                         </div>
-
                         <div class="form-group">
-                            <label>Duration:</label>
+                            <label for="duration">Duration:</label>
                             <input type="text" id="duration" required placeholder="e.g., 3 Months">
                         </div>
-
                         <div class="form-group">
-                            <label>Features / Description:</label>
-                            <textarea id="features" rows="4"
-                                placeholder="List features separated by commas..."></textarea>
+                            <label for="features">Features / Description:</label>
+                            <textarea id="features" rows="4" placeholder="List features separated by commas..."></textarea>
                         </div>
-
-                        <button type="submit">➕ Add Plan</button>
+                        <button type="submit">+ Add Plan</button>
                     </form>
                 </section>
             </div>
         </main>
     </div>
 
-    <!-- Edit Modal -->
-    <div id="editModal" class="modal">
+    <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <h3>✏️ Edit Plan</h3>
+            <h3 id="modalTitle">Edit Plan</h3>
             <div class="form-group">
-                <label>Plan Name:</label>
+                <label for="editPlanName">Plan Name:</label>
                 <input type="text" id="editPlanName">
             </div>
             <div class="form-group">
-                <label>Price:</label>
+                <label for="editPrice">Price (DA):</label>
                 <input type="number" id="editPrice">
             </div>
             <div class="form-group">
-                <label>Duration:</label>
+                <label for="editDuration">Duration:</label>
                 <input type="text" id="editDuration">
             </div>
             <div class="form-group">
-                <label>Features:</label>
+                <label for="editFeatures">Features:</label>
                 <textarea id="editFeatures" rows="4"></textarea>
             </div>
             <div class="modal-buttons">
-                <button class="save-btn" id="saveEditBtn">💾 Save Changes</button>
-                <button class="cancel-btn" id="closeEditModal">❌ Cancel</button>
+                <button class="save-btn" id="saveEditBtn">Save Changes</button>
+                <button class="cancel-btn" id="closeEditModal">Cancel</button>
             </div>
         </div>
     </div>
 
     <script src="js/data-config.js"></script>
-   <script src="js/admin.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/admin.js"></script>
 </body>
-
 </html>
